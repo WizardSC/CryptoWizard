@@ -4,9 +4,9 @@
  */
 package App.model;
 
-import App.AffineGUI;
-import App.CaeserCipherGUI;
-import App.SubstitutionGUI;
+import App.GUI.AffineGUI;
+import App.GUI.CaeserCipherGUI;
+import App.GUI.SubstitutionGUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
