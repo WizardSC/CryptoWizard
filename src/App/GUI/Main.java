@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         new GiaoDienGUI().setVisible(true);
         try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
 
         }

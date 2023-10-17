@@ -29,17 +29,17 @@ public class CaeserCipherGUI extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        txtKhoaKofBanMa = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        txtBanMa = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnGiaiMa = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txtBanRo = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtKhoaKofBanRo = new javax.swing.JTextField();
+        btnMaHoa = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1153, 689));
@@ -50,16 +50,21 @@ public class CaeserCipherGUI extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(244, 249, 249));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bản mã", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 1, 24))); // NOI18N
 
-        jTextField2.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        txtKhoaKofBanMa.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane3.setViewportView(jTextArea3);
+        txtBanMa.setColumns(20);
+        txtBanMa.setRows(5);
+        jScrollPane3.setViewportView(txtBanMa);
 
         jLabel3.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         jLabel3.setText("Khóa dịch k");
 
-        jButton2.setText("Giải mã");
+        btnGiaiMa.setText("Giải mã");
+        btnGiaiMa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGiaiMaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -74,8 +79,8 @@ public class CaeserCipherGUI extends javax.swing.JPanel {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGiaiMa)
+                    .addComponent(txtKhoaKofBanMa, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -85,26 +90,31 @@ public class CaeserCipherGUI extends javax.swing.JPanel {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtKhoaKofBanMa, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGiaiMa, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(152, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(244, 249, 249));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bản rõ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 1, 24))); // NOI18N
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        txtBanRo.setColumns(20);
+        txtBanRo.setRows(5);
+        jScrollPane2.setViewportView(txtBanRo);
 
         jLabel2.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         jLabel2.setText("Khóa dịch k");
 
-        jTextField1.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        txtKhoaKofBanRo.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
-        jButton1.setText("Mã hóa");
+        btnMaHoa.setText("Mã hóa");
+        btnMaHoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMaHoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -116,13 +126,13 @@ public class CaeserCipherGUI extends javax.swing.JPanel {
                         .addGap(56, 56, 56)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtKhoaKofBanRo, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(203, 203, 203)
-                        .addComponent(jButton1)))
+                        .addComponent(btnMaHoa)))
                 .addGap(107, 107, 107))
         );
         jPanel3Layout.setVerticalGroup(
@@ -132,10 +142,10 @@ public class CaeserCipherGUI extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtKhoaKofBanRo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMaHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(155, Short.MAX_VALUE))
         );
 
@@ -185,10 +195,66 @@ public class CaeserCipherGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public String caesarCipher(String input, int key) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < input.length(); i++) {
+            char currentChar = input.charAt(i);
+            if (Character.isLetter(currentChar)) {
+                char base = Character.isLowerCase(currentChar) ? 'a' : 'A';
+                char encryptedChar = (char) (((currentChar - base + key) % 26) + base);
+                result.append(encryptedChar);
+            } else {
+                result.append(currentChar);
+            }
+        }
+        return result.toString();
+    }
+
+    private void btnMaHoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaHoaActionPerformed
+        String inputText = txtBanRo.getText();
+        int key = Integer.parseInt(txtKhoaKofBanRo.getText());
+        String encryptedText = caesarCipher(inputText, key);
+        txtBanMa.setText(encryptedText);
+    }//GEN-LAST:event_btnMaHoaActionPerformed
+
+    private void btnGiaiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiMaActionPerformed
+        try {
+            String ciphertext = txtBanMa.getText().toUpperCase();
+            int shift = Integer.parseInt(txtKhoaKofBanMa.getText());
+            StringBuilder decryptedText = new StringBuilder();
+
+            for (int i = 0; i < ciphertext.length(); i++) {
+                char currentChar = ciphertext.charAt(i);
+
+                if (Character.isLetter(currentChar)) {
+                    char shiftedChar = (char) (currentChar - shift);
+
+                    if (Character.isLowerCase(currentChar)) {
+                        if (shiftedChar < 'a') {
+                            shiftedChar = (char) (shiftedChar + 26);
+                        }
+                    } else {
+                        if (shiftedChar < 'A') {
+                            shiftedChar = (char) (shiftedChar + 26);
+                        }
+                    }
+
+                    decryptedText.append(shiftedChar);
+                } else {
+                    decryptedText.append(currentChar);
+                }
+            }
+
+            txtBanRo.setText(decryptedText.toString());
+        } catch (NumberFormatException ex) {
+            txtBanRo.setText("Lỗi: Nhập giá trị không hợp lệ.");
+        }
+    }//GEN-LAST:event_btnGiaiMaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnGiaiMa;
+    private javax.swing.JButton btnMaHoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -197,9 +263,9 @@ public class CaeserCipherGUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextArea txtBanMa;
+    private javax.swing.JTextArea txtBanRo;
+    private javax.swing.JTextField txtKhoaKofBanMa;
+    private javax.swing.JTextField txtKhoaKofBanRo;
     // End of variables declaration//GEN-END:variables
 }
