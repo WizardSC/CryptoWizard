@@ -23,10 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="pnRoot" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="pnRoot" alignment="0" pref="1351" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -57,7 +54,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="pnHeader" pref="1382" max="32767" attributes="0"/>
+              <Component id="pnHeader" alignment="0" pref="1343" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <Component id="pnMenu" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
@@ -69,7 +66,6 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="pnHeader" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="pnMenu" max="32767" attributes="0"/>
                       <Component id="pnView" max="32767" attributes="0"/>
@@ -100,7 +96,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="401" max="-2" attributes="0"/>
-                      <EmptySpace pref="907" max="32767" attributes="0"/>
+                      <EmptySpace pref="868" max="32767" attributes="0"/>
                       <Component id="btnClose" min="-2" pref="49" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -170,7 +166,7 @@
                       <Component id="pnSubstitution" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="187" max="32767" attributes="0"/>
+                      <EmptySpace pref="184" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
