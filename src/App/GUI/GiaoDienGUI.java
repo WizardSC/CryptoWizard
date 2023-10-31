@@ -28,7 +28,8 @@ public class GiaoDienGUI extends javax.swing.JFrame {
         list.add(new DanhMuc("Caesar Cipher", pnCaesarCipher, lblCeasarCipher));
         list.add(new DanhMuc("Affine", pnAffine, lblAffine));
         list.add(new DanhMuc("Substitution", pnSubstitution, lblSubstitution));
-
+        list.add(new DanhMuc("Vigenere",pnVigenere,lblVigenere));
+        list.add(new DanhMuc("Hill",pnHill,lblHill));
         controller.setEvent(list);
     }
 
@@ -56,8 +57,10 @@ public class GiaoDienGUI extends javax.swing.JFrame {
         lblAffine = new javax.swing.JLabel();
         pnSubstitution = new javax.swing.JPanel();
         lblSubstitution = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        pnVigenere = new javax.swing.JPanel();
+        lblVigenere = new javax.swing.JLabel();
+        pnHill = new javax.swing.JPanel();
+        lblHill = new javax.swing.JLabel();
         pnView = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -92,7 +95,7 @@ public class GiaoDienGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnHeaderLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 868, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 907, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnHeaderLayout.setVerticalGroup(
@@ -188,22 +191,40 @@ public class GiaoDienGUI extends javax.swing.JFrame {
             .addComponent(lblSubstitution, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
-        jPanel6.setBackground(new java.awt.Color(204, 242, 244));
+        pnVigenere.setBackground(new java.awt.Color(204, 242, 244));
 
-        jLabel9.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        jLabel9.setText("Vigenère");
+        lblVigenere.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
+        lblVigenere.setText("Vigenère");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+        javax.swing.GroupLayout pnVigenereLayout = new javax.swing.GroupLayout(pnVigenere);
+        pnVigenere.setLayout(pnVigenereLayout);
+        pnVigenereLayout.setHorizontalGroup(
+            pnVigenereLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnVigenereLayout.createSequentialGroup()
+                .addGap(0, 60, Short.MAX_VALUE)
+                .addComponent(lblVigenere, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+        pnVigenereLayout.setVerticalGroup(
+            pnVigenereLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblVigenere, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        pnHill.setBackground(new java.awt.Color(204, 242, 244));
+
+        lblHill.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
+        lblHill.setText("Hill");
+
+        javax.swing.GroupLayout pnHillLayout = new javax.swing.GroupLayout(pnHill);
+        pnHill.setLayout(pnHillLayout);
+        pnHillLayout.setHorizontalGroup(
+            pnHillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnHillLayout.createSequentialGroup()
+                .addGap(0, 60, Short.MAX_VALUE)
+                .addComponent(lblHill, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        pnHillLayout.setVerticalGroup(
+            pnHillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblHill, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout pnMenuLayout = new javax.swing.GroupLayout(pnMenu);
@@ -215,7 +236,8 @@ public class GiaoDienGUI extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnAffine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnSubstitution, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnVigenere, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnHill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnMenuLayout.setVerticalGroup(
             pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,8 +252,10 @@ public class GiaoDienGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(pnSubstitution, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addComponent(pnVigenere, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnHill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnView.setBackground(new java.awt.Color(244, 249, 249));
@@ -247,7 +271,7 @@ public class GiaoDienGUI extends javax.swing.JFrame {
             pnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnViewLayout.createSequentialGroup()
                 .addComponent(jLabel10)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 1105, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnViewLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel11))
@@ -256,7 +280,7 @@ public class GiaoDienGUI extends javax.swing.JFrame {
             pnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnViewLayout.createSequentialGroup()
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 670, Short.MAX_VALUE)
                 .addComponent(jLabel11))
         );
 
@@ -264,7 +288,7 @@ public class GiaoDienGUI extends javax.swing.JFrame {
         pnRoot.setLayout(pnRootLayout);
         pnRootLayout.setHorizontalGroup(
             pnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 1343, Short.MAX_VALUE)
+            .addComponent(pnHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 1382, Short.MAX_VALUE)
             .addGroup(pnRootLayout.createSequentialGroup()
                 .addComponent(pnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -308,18 +332,22 @@ public class GiaoDienGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel lblAffine;
     private javax.swing.JLabel lblCeasarCipher;
+    private javax.swing.JLabel lblHill;
     private javax.swing.JLabel lblSubstitution;
+    private javax.swing.JLabel lblVigenere;
+    private javax.swing.JLabel lblVigenere1;
     private javax.swing.JPanel pnAffine;
     private javax.swing.JPanel pnCaesarCipher;
     private javax.swing.JPanel pnHeader;
+    private javax.swing.JPanel pnHill;
     private javax.swing.JPanel pnMenu;
     private javax.swing.JPanel pnRoot;
     private javax.swing.JPanel pnSubstitution;
     private javax.swing.JPanel pnView;
+    private javax.swing.JPanel pnVigenere;
+    private javax.swing.JPanel pnVigenere1;
     // End of variables declaration//GEN-END:variables
 }

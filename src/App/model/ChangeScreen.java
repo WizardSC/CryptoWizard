@@ -6,7 +6,9 @@ package App.model;
 
 import App.GUI.AffineGUI;
 import App.GUI.CaeserCipherGUI;
+import App.GUI.HillGUI;
 import App.GUI.SubstitutionGUI;
+import App.GUI.VigenereGUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -68,6 +70,12 @@ public class ChangeScreen {
                     break;
                 case "Substitution":
                     node = new SubstitutionGUI();
+                    break;
+                case "Vigenere":
+                    node = new VigenereGUI();
+                    break;
+                case "Hill":
+                    node = new HillGUI();
                     break;
                 default:
                     break;
