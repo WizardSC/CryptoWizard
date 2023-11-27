@@ -7,6 +7,7 @@ package App.model;
 import App.GUI.AffineGUI;
 import App.GUI.CaeserCipherGUI;
 import App.GUI.HillGUI;
+import App.GUI.RSA_GUI;
 import App.GUI.SubstitutionGUI;
 import App.GUI.VigenereGUI;
 import java.awt.BorderLayout;
@@ -76,6 +77,9 @@ public class ChangeScreen {
                     break;
                 case "Hill":
                     node = new HillGUI();
+                    break;
+                case "RSA":
+                    node = new RSA_GUI();
                     break;
                 default:
                     break;

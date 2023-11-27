@@ -437,7 +437,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnChooseFileBanMaActionPerformed
 
     private void btnLuuKhoaBanMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuKhoaBanMaActionPerformed
-        JFileChooser fileChooser = new JFileChooser("src/App/file");
+        JFileChooser fileChooser = new JFileChooser("src/App/file/RSA");
         int result = fileChooser.showSaveDialog(this); // this là JPanel hoặc JFrame chứa nút
 
         if (result == JFileChooser.APPROVE_OPTION) {
