@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Phuc%20Toan/Documents/NetBeansProjects/CryptoWizard/src/App/model/ChangeScreen.java</file>
+            <file>file:/C:/Users/Phuc%20Toan/Documents/NetBeansProjects/CryptoWizard/src/App/GUI/HillCipherDecrypt.java</file>
+            <file>file:/C:/Users/Phuc%20Toan/Documents/NetBeansProjects/CryptoWizard/src/App/GUI/AffineGUI.java</file>
             <file>file:/C:/Users/Phuc%20Toan/Documents/NetBeansProjects/CryptoWizard/src/App/GUI/Main.java</file>
             <file>file:/C:/Users/Phuc%20Toan/Documents/NetBeansProjects/CryptoWizard/src/App/GUI/CaeserCipherGUI.java</file>
             <file>file:/C:/Users/Phuc%20Toan/Documents/NetBeansProjects/CryptoWizard/src/App/GUI/GiaoDienGUI.java</file>
-            <file>file:/C:/Users/Phuc%20Toan/Documents/NetBeansProjects/CryptoWizard/src/App/GUI/VigenereGUI.java</file>
             <file>file:/C:/Users/Phuc%20Toan/Documents/NetBeansProjects/CryptoWizard/src/App/GUI/HillGUI.java</file>
-            <file>file:/C:/Users/Phuc%20Toan/Documents/NetBeansProjects/CryptoWizard/src/App/GUI/SubstitutionGUI.java</file>
+            <file>file:/C:/Users/Phuc%20Toan/Documents/NetBeansProjects/CryptoWizard/src/App/GUI/VigenereGUI.java</file>
+            <file>file:/C:/Users/Phuc%20Toan/Documents/NetBeansProjects/CryptoWizard/src/App/GUI/VigenereDecoderGUI.java</file>
         </group>
     </open-files>
 </project-private>
