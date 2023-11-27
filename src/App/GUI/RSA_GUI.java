@@ -6,7 +6,6 @@ package App.GUI;
 
 import static App.GUI.MaHoaRSA.RSADecrypt;
 import static App.GUI.MaHoaRSA.RSAEncrypt;
-import App.model.SubstitutionCipher;
 import App.readFile.readFile;
 import java.io.File;
 import java.io.FileWriter;

@@ -17,71 +17,163 @@ public class HillGUI extends javax.swing.JPanel {
         initComponents();
     }
 
-    private static int inverseMod(int det) {
-        int[] possibleValues = {1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25};
-        for (int value : possibleValues) {
-            if ((det * value) % 26 == 1) {
-                return value;
-            }
+    public static String encryptHill(String plaintext, int[][] key) {
+        if (plaintext.length() % 2 != 0) {
+            plaintext += 'X';
         }
-        return -1;
-    }
+        StringBuilder encryptedText = new StringBuilder();
 
-    private static int[][] matrixInverse(int[][] matrix) {
-        int det = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
-        int detInverse = inverseMod(det);
-        if (detInverse == -1) {
-            return null;
-        }
-        int[][] inverse = new int[2][2];
+        for (int i = 0; i < plaintext.length(); i += 2) {
+            if (Character.isLetter(plaintext.charAt(i)) && Character.isLetter(plaintext.charAt(i + 1))) {
+                int char1 = getCharValue(plaintext.charAt(i));
+                int char2 = getCharValue(plaintext.charAt(i + 1));
 
-        inverse[0][0] = (matrix[1][1] * detInverse + 26) % 26;
-        inverse[0][1] = (-matrix[0][1] * detInverse + 26) % 26;
-        inverse[1][0] = (-matrix[1][0] * detInverse + 26) % 26;
-        inverse[1][1] = (matrix[0][0] * detInverse + 26) % 26;
-        return inverse;
-    }
+                int encryptedChar1 = encryptChar(char1, char2, key, 0);
+                int encryptedChar2 = encryptChar(char1, char2, key, 1);
 
-    private static String decryptHillCipher(String ciphertext, int[][] key) {
-        int[][] inverseKey = matrixInverse(key);
-        if (inverseKey == null) {
-            return "Không thể giải mã với ma trận khóa đã cho.";
-        }
-        StringBuilder plaintext = new StringBuilder();
-        for (int i = 0; i < ciphertext.length(); i += 2) {
-            int[] block = {ciphertext.charAt(i) - 'A', ciphertext.charAt(i + 1) - 'A'};
-            int[] decryptedBlock = new int[2];
-            for (int j = 0; j < 2; j++) {
-                for (int k = 0; k < 2; k++) {
-                    decryptedBlock[j] += block[k] * inverseKey[k][j];
+                if (Character.isUpperCase(plaintext.charAt(i))) {
+                    encryptedChar1 = Character.toUpperCase(getChar(encryptedChar1));
                 }
-                decryptedBlock[j] = (decryptedBlock[j] % 26 + 26) % 26; // Chia lấy phần dư cho 26
+                if (Character.isUpperCase(plaintext.charAt(i + 1))) {
+                    encryptedChar2 = Character.toUpperCase(getChar(encryptedChar2));
+                }
+
+                encryptedText.append((char) encryptedChar1);
+                encryptedText.append((char) encryptedChar2);
+            } else {
+                encryptedText.append(plaintext.charAt(i));
+                encryptedText.append(plaintext.charAt(i + 1));
             }
-            plaintext.append((char) (decryptedBlock[0] + 'A')).append((char) (decryptedBlock[1] + 'A'));
         }
-        return plaintext.toString();
+        // Loại bỏ ký tự 'X' được thêm vào cuối chuỗi khi mã hóa
+        if (encryptedText.charAt(encryptedText.length() - 1) == 'X') {
+            encryptedText.deleteCharAt(encryptedText.length() - 1);
+        }
+        return encryptedText.toString();
     }
 
-    private int[][] parseKey(String key) {
-        key = key.replaceAll("\\s+", " ").trim(); // Loại bỏ khoảng trắng thừa ở đầu và cuối, thay thế dấu cách liên tiếp bằng một dấu cách duy nhất
-        String[] valuesStr = key.split(" ");
-        int n = (int) Math.sqrt(valuesStr.length);
-
-        if (n * n != valuesStr.length) {
-            return null;
+    public static String decryptHill(String ciphertext, int[][] key) {
+        if (ciphertext.length() % 2 != 0) {
+            ciphertext += 'X';
         }
+        StringBuilder decryptedText = new StringBuilder();
 
-        int[][] keyMatrix = new int[n][n];
-        int index = 0;
+        int[][] inverseKey = getInverseKey(key);
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                keyMatrix[i][j] = Integer.parseInt(valuesStr[index]);
-                index++;
+        for (int i = 0; i < ciphertext.length(); i += 2) {
+            if (Character.isLetter(ciphertext.charAt(i)) && Character.isLetter(ciphertext.charAt(i + 1))) {
+                int char1 = getCharValue(ciphertext.charAt(i));
+                int char2 = getCharValue(ciphertext.charAt(i + 1));
+
+                int decryptedChar1 = decryptChar(char1, char2, inverseKey, 0);
+                int decryptedChar2 = decryptChar(char1, char2, inverseKey, 1);
+
+                if (Character.isUpperCase(ciphertext.charAt(i))) {
+                    decryptedChar1 = Character.toUpperCase(getChar(decryptedChar1));
+                }
+                if (Character.isUpperCase(ciphertext.charAt(i + 1))) {
+                    decryptedChar2 = Character.toUpperCase(getChar(decryptedChar2));
+                }
+
+                decryptedText.append((char) decryptedChar1);
+                decryptedText.append((char) decryptedChar2);
+            } else {
+                decryptedText.append(ciphertext.charAt(i));
+                decryptedText.append(ciphertext.charAt(i + 1));
+            }
+        }
+        if (decryptedText.charAt(decryptedText.length() - 1) == 'X') {
+            decryptedText.deleteCharAt(decryptedText.length() - 1);
+        }
+        return decryptedText.toString();
+    }
+
+    // Các hàm bổ trợ
+    private static int encryptChar(int char1, int char2, int[][] key, int column) {
+        return key[column][0] * char1 + key[column][1] * char2;
+    }
+
+    private static int decryptChar(int char1, int char2, int[][] key, int row) {
+        return key[row][0] * char1 + key[row][1] * char2;
+    }
+
+    private static int getCharValue(char c) {
+        return Character.isUpperCase(c) ? c - 'A' : c - 'a';
+    }
+
+    private static char getChar(int value) {
+        return (char) ((value % 26 + 26) % 26 + 'a');
+    }
+
+    private static int[][] getInverseKey(int[][] key) {
+        int determinant = key[0][0] * key[1][1] - key[0][1] * key[1][0];
+        int determinantInverse = modInverseHill(determinant, 26);
+
+        int[][] inverseKey = {
+            {key[1][1], -key[0][1]},
+            {-key[1][0], key[0][0]}
+        };
+
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                inverseKey[i][j] = mod(inverseKey[i][j] * determinantInverse, 26);
             }
         }
 
-        return keyMatrix;
+        return inverseKey;
+    }
+
+    private static int modInverseHill(int a, int m) {
+        a = mod(a, m);
+        for (int x = 1; x < m; x++) {
+            if (mod(a * x, m) == 1) {
+                return x;
+            }
+        }
+        throw new RuntimeException("Modular inverse does not exist.");
+    }
+
+    private static int mod(int a, int m) {
+        return (a % m + m) % m;
+    }
+
+    private int[][] getKeyMatrix(String key) {
+        // Loại bỏ dấu ngoặc nếu có
+        key = key.replaceAll("[{}]", "");
+
+        // Chuyển key thành một mảng số nguyên
+        String[] keyValues = key.split("\\s*,\\s*");
+        int[] keyArray = new int[keyValues.length];
+
+        for (int i = 0; i < keyValues.length; i++) {
+            keyArray[i] = Integer.parseInt(keyValues[i]);
+        }
+
+        // Kiểm tra nếu số lượng phần tử đủ để tạo ma trận 2x2
+        if (keyArray.length == 4) {
+            int[][] keyMatrix = new int[2][2];
+            keyMatrix[0][0] = keyArray[0];
+            keyMatrix[0][1] = keyArray[1];
+            keyMatrix[1][0] = keyArray[2];
+            keyMatrix[1][1] = keyArray[3];
+            return keyMatrix;
+        } else {
+            throw new RuntimeException("Invalid key format. Please enter 4 integers separated by commas.");
+        }
+    }
+
+    private boolean isValidKey(int[][] key) {
+        int determinant = key[0][0] * key[1][1] - key[0][1] * key[1][0];
+        int determinantInverse = modInverseHill(determinant, 26);
+
+        // Kiểm tra xem determinantInverse có thuộc {1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25} không
+        int[] validValues = {1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25};
+        for (int value : validValues) {
+            if (determinantInverse == value) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -159,8 +251,8 @@ public class HillGUI extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         jLabel4.setText("Khóa dịch k");
 
-        jLabel5.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jLabel5.setText("Cách nhập khóa: Ví dụ 7 3 18 11 tương tự {7,18},{3,11}");
+        jLabel5.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        jLabel5.setText("Cách nhập khóa: Ví dụ {3,2,3,5}");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -205,6 +297,8 @@ public class HillGUI extends javax.swing.JPanel {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(224, 224, 224)))
         );
+
+        jLabel5.getAccessibleContext().setAccessibleName("Cách nhập khóa: Ví dụ {3,2,3,5}");
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
         jLabel1.setText("HỆ MÃ HILL");
@@ -267,41 +361,34 @@ public class HillGUI extends javax.swing.JPanel {
 
     private void btnGiaiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiMaActionPerformed
         String ciphertext = txtBanMa.getText().toUpperCase();
-        String key = txtKhoaKofBanMa.getText().toUpperCase();
-        int[][] keyMatrix = parseKey(key);
-        if (keyMatrix != null) {
-            String plaintext = decryptHillCipher(ciphertext, keyMatrix);
-            txtBanRo.setText(plaintext);
-        } else {
-            txtBanRo.setText("Không thể giải mã với ma trận khóa đã cho.");
+        String key = txtKhoaKofBanMa.getText();
+
+        try {
+            int[][] keyMatrix = getKeyMatrix(key);
+            if (isValidKey(keyMatrix)) {
+                String plaintext = decryptHill(ciphertext, keyMatrix);
+                txtBanRo.setText(plaintext);
+            } else {
+                txtBanRo.setText("Không thể giải mã với ma trận khóa đã cho. Không hợp lệ.");
+            }
+        } catch (Exception e) {
+            txtBanRo.setText("Không thể giải mã với ma trận khóa đã cho. " + e.getMessage());
         }
     }//GEN-LAST:event_btnGiaiMaActionPerformed
 
     private void btnMaHoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaHoaActionPerformed
         String plaintext = txtBanRo.getText().toUpperCase();
-        String key = txtKhoaKofBanRo.getText().toUpperCase();
-        int[][] keyMatrix = parseKey(key);
-
-        if (keyMatrix != null) {
-            StringBuilder ciphertext = new StringBuilder();
-
-            for (int i = 0; i < plaintext.length(); i += 2) {
-                int[] block = {plaintext.charAt(i) - 'A', plaintext.charAt(i + 1) - 'A'};
-                int[] encryptedBlock = new int[2];
-
-                for (int j = 0; j < 2; j++) {
-                    for (int k = 0; k < 2; k++) {
-                        encryptedBlock[j] += block[k] * keyMatrix[k][j];
-                    }
-                    encryptedBlock[j] = encryptedBlock[j] % 26; // Lấy phần dư cho 26
-                }
-
-                ciphertext.append((char) (encryptedBlock[0] + 'A')).append((char) (encryptedBlock[1] + 'A'));
+        String key = txtKhoaKofBanRo.getText();
+        try {
+            int[][] keyMatrix = getKeyMatrix(key);
+            if (isValidKey(keyMatrix)) {
+                String ciphertext = encryptHill(plaintext, keyMatrix);
+                txtBanMa.setText(ciphertext);
+            } else {
+                txtBanMa.setText("Không thể mã hóa với ma trận khóa đã cho. Không hợp lệ.");
             }
-
-            txtBanMa.setText(ciphertext.toString());
-        } else {
-            txtBanMa.setText("Không thể mã hóa với ma trận khóa đã cho.");
+        } catch (Exception e) {
+            txtBanMa.setText("Không thể mã hóa với ma trận khóa đã cho. " + e.getMessage());
         }
     }//GEN-LAST:event_btnMaHoaActionPerformed
 

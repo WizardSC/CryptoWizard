@@ -311,9 +311,9 @@
                 <Component class="javax.swing.JLabel" name="jLabel5">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Cambria" size="14" style="1"/>
+                      <Font name="Cambria" size="18" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="C&#xe1;ch nh&#x1ead;p kh&#xf3;a: V&#xed; d&#x1ee5; 7 3 18 11 t&#x1b0;&#x1a1;ng t&#x1ef1; {7,18},{3,11}"/>
+                    <Property name="text" type="java.lang.String" value="C&#xe1;ch nh&#x1ead;p kh&#xf3;a: V&#xed; d&#x1ee5; {3,2,3,5}"/>
                   </Properties>
                 </Component>
               </SubComponents>

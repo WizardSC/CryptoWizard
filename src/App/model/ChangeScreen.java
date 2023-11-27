@@ -5,7 +5,7 @@
 package App.model;
 
 import App.GUI.AffineGUI;
-import App.GUI.CaeserCipherGUI;
+import App.GUI.CaeserGUI;
 import App.GUI.HillGUI;
 import App.GUI.RSA_GUI;
 import App.GUI.SubstitutionGUI;
@@ -35,7 +35,7 @@ public class ChangeScreen {
 
         pnRoot.removeAll();
         pnRoot.setLayout(new BorderLayout());
-        pnRoot.add(new CaeserCipherGUI());
+        pnRoot.add(new CaeserGUI());
         pnRoot.validate();
         pnRoot.repaint();
     }
@@ -64,7 +64,7 @@ public class ChangeScreen {
         public void mouseClicked(MouseEvent e) {
             switch (kind) {
                 case "Caesar Cipher":
-                    node = new CaeserCipherGUI();
+                    node = new CaeserGUI();
                     break;
                 case "Affine":
                     node = new AffineGUI();

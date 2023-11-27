@@ -4,7 +4,6 @@
  */
 package App.GUI;
 
-import App.model.SubstitutionCipher;
 import App.readFile.readFile;
 import java.io.File;
 import java.io.FileWriter;
@@ -25,6 +24,68 @@ public class SubstitutionGUI extends javax.swing.JPanel {
 
     public SubstitutionGUI() {
         initComponents();
+    }
+    private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+
+    public static String encrypt(String plaintext, String key) {
+    // Hàm mã hóa chính
+    StringBuilder ciphertext = new StringBuilder();
+
+    for (int i = 0; i < plaintext.length(); i++) {
+        char c = plaintext.charAt(i);
+        char encryptedChar;
+
+        if (Character.isUpperCase(c)) {
+            int index = ALPHABET.indexOf(Character.toLowerCase(c));
+            if (index != -1) {
+                encryptedChar = Character.toUpperCase(key.charAt(index));
+                ciphertext.append(encryptedChar);
+            } else {
+                ciphertext.append(c);
+            }
+        } else if (Character.isLowerCase(c)) {
+            int index = ALPHABET.indexOf(c);
+            if (index != -1) {
+                encryptedChar = key.charAt(index);
+                ciphertext.append(encryptedChar);
+            } else {
+                ciphertext.append(c);
+            }
+        } else {
+            ciphertext.append(c);
+        }
+    }
+
+    return ciphertext.toString();
+}
+    public static boolean isKeyValid(String key) {
+        // Kiểm tra xem key có đủ 26 ký tự
+        if (key.length() != 26) {
+            return false;
+        }
+
+        // Kiểm tra xem key có chứa ít nhất một ký tự in hoa hoặc ít nhất một ký tự in thường
+        boolean hasUppercase = false;
+        boolean hasLowercase = false;
+
+        for (char c : key.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasUppercase = true;
+            } else if (Character.isLowerCase(c)) {
+                hasLowercase = true;
+            }
+
+            // Kiểm tra xem ký tự đã xuất hiện trong key trước đó hay chưa
+            if (key.indexOf(c) != key.lastIndexOf(c)) {
+                return false; // Có ký tự lặp lại trong key
+            }
+        }
+
+        if (hasUppercase || hasLowercase) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -73,7 +134,9 @@ public class SubstitutionGUI extends javax.swing.JPanel {
 
         txtBanMa.setColumns(20);
         txtBanMa.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
+        txtBanMa.setLineWrap(true);
         txtBanMa.setRows(5);
+        txtBanMa.setWrapStyleWord(true);
         jScrollPane3.setViewportView(txtBanMa);
 
         jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 42, 502, 304));
@@ -123,7 +186,9 @@ public class SubstitutionGUI extends javax.swing.JPanel {
 
         txtBanRo.setColumns(20);
         txtBanRo.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
+        txtBanRo.setLineWrap(true);
         txtBanRo.setRows(5);
+        txtBanRo.setWrapStyleWord(true);
         jScrollPane2.setViewportView(txtBanRo);
 
         txtKhoaKofBanRo.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
@@ -208,7 +273,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
                     .addComponent(btnLuuKhoaBanRo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addComponent(btnMaHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                     .addContainerGap(347, Short.MAX_VALUE)
@@ -281,14 +346,14 @@ public class SubstitutionGUI extends javax.swing.JPanel {
         String key = txtKhoaKofBanRo.getText();
         String encryptedText = "";
         // khoi tao class SubstitutionCipher
-        if(plainText.equals("")){
+        if (plainText.equals("")) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập bản rõ", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        SubstitutionCipher substitutionCipher = new SubstitutionCipher();
+        
 
-        if (substitutionCipher.isKeyValid(key)) {
-            encryptedText = substitutionCipher.encrypt(plainText, key);
+        if (isKeyValid(key)) {
+            encryptedText = encrypt(plainText, key);
         } else {
             JOptionPane.showMessageDialog(null, "Khóa không hợp lệ, vui lòng thử lại!");
         }
@@ -298,7 +363,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
 
     private void btnChooseFileBanRoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseFileBanRoActionPerformed
         // TODO add your handling code here:
-        JFileChooser fileChooser = new JFileChooser("src/App/file");
+        JFileChooser fileChooser = new JFileChooser("src/App/file/Substitution");
         int result = fileChooser.showOpenDialog(jPanel3);
         //SubstitutionCipher substitutionCipher = new SubstitutionCipher();
 
@@ -335,14 +400,12 @@ public class SubstitutionGUI extends javax.swing.JPanel {
         String key = txtKhoaKofBanMa.getText(); // Lấy khóa từ giao diện
         String plainText = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Bản rõ cố định
         String decryptedText = "";
-        if(cipherText.equals("")){
+        if (cipherText.equals("")) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập bản mã", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        // Gọi hàm giải mã
-        SubstitutionCipher substitutionCipher = new SubstitutionCipher();
 
-        if (substitutionCipher.isKeyValid(key)) {
+        if (isKeyValid(key)) {
             decryptedText = decryptSubstitution(cipherText, key, plainText);
         } else {
             JOptionPane.showMessageDialog(null, "Khóa không hợp lệ, vui lòng thử lại!");
@@ -375,7 +438,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTaoKhoaNgauNhienofBanRoActionPerformed
 
     private void btnLuuKhoaBanRoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuKhoaBanRoActionPerformed
-        JFileChooser fileChooser = new JFileChooser("src/App/file");
+        JFileChooser fileChooser = new JFileChooser("src/App/file/Substitution");
         int result = fileChooser.showSaveDialog(this); // this là JPanel hoặc JFrame chứa nút
 
         if (result == JFileChooser.APPROVE_OPTION) {
@@ -422,7 +485,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
 
     private void btnChooseFileBanMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseFileBanMaActionPerformed
         // TODO add your handling code here:
-        JFileChooser fileChooser = new JFileChooser("src/App/file");
+        JFileChooser fileChooser = new JFileChooser("src/App/file/Substitution");
         int result = fileChooser.showOpenDialog(jPanel3);
         //SubstitutionCipher substitutionCipher = new SubstitutionCipher();
 
@@ -437,7 +500,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnChooseFileBanMaActionPerformed
 
     private void btnLuuKhoaBanMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuKhoaBanMaActionPerformed
-        JFileChooser fileChooser = new JFileChooser("src/App/file/RSA");
+        JFileChooser fileChooser = new JFileChooser("src/App/file/Substitution");
         int result = fileChooser.showSaveDialog(this); // this là JPanel hoặc JFrame chứa nút
 
         if (result == JFileChooser.APPROVE_OPTION) {
