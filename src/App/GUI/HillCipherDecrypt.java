@@ -90,7 +90,9 @@ public class HillCipherDecrypt {
         // viết thêm upper để input là chữ in hoa
         ciphertext = ciphertext.toUpperCase();
 
-        int[][] key = {{7,3}, {18,11}};
+        //int[][] key = {{7,3}, {18,11}};
+        int[][] key = {{3,3}, {2,5}};
+
         String plaintext = decryptHillCipher(ciphertext, key);
         System.out.println("Chuỗi đã giải mã: " + plaintext);
     }

@@ -254,13 +254,13 @@
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Cambria" size="24" style="1"/>
+                  <Font name="Cambria" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Kh&#xf3;a d&#x1ecb;ch k"/>
+                <Property name="text" type="java.lang.String" value="C&#xe1;ch nh&#x1ead;p kh&#xf3;a: Vd: 2"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="390" width="149" height="45"/>
+                  <AbsoluteConstraints x="20" y="450" width="149" height="45"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -356,6 +356,19 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JLabel" name="jLabel8">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Cambria" size="24" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Kh&#xf3;a d&#x1ecb;ch k"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="20" y="390" width="149" height="45"/>
+                </Constraint>
+              </Constraints>
+            </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel1">

@@ -211,7 +211,15 @@ public class AffineGUI extends javax.swing.JPanel {
     private void btnGiaiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiMaActionPerformed
         AffineCipher affineCipher = new AffineCipher();
         String plaintext = txtBanMa.getText().toUpperCase();
+        if (plaintext.equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập bản mã", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         String input = txtKhoaKbanMa.getText();
+        if (input.equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập khóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
 
         String[] parts = input.split(" ");
         int[] key = new int[2];
@@ -237,7 +245,15 @@ public class AffineGUI extends javax.swing.JPanel {
 
         AffineCipher affineCipher = new AffineCipher();
         String plaintext = txtBanRo.getText().toUpperCase();
+        if (plaintext.equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập bản rõ", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         String input = txtKhoaK.getText();
+        if (input.equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập khóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
 
         String[] parts = input.split(" ");
         int[] key = new int[2];

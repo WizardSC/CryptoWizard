@@ -4,6 +4,8 @@
  */
 package App.GUI;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Phuc Toan
@@ -46,9 +48,11 @@ public class HillGUI extends javax.swing.JPanel {
             }
         }
         // Loại bỏ ký tự 'X' được thêm vào cuối chuỗi khi mã hóa
+        /*
         if (encryptedText.charAt(encryptedText.length() - 1) == 'X') {
             encryptedText.deleteCharAt(encryptedText.length() - 1);
         }
+        */
         return encryptedText.toString();
     }
 
@@ -82,9 +86,11 @@ public class HillGUI extends javax.swing.JPanel {
                 decryptedText.append(ciphertext.charAt(i + 1));
             }
         }
+        /*
         if (decryptedText.charAt(decryptedText.length() - 1) == 'X') {
             decryptedText.deleteCharAt(decryptedText.length() - 1);
         }
+        */
         return decryptedText.toString();
     }
 
@@ -114,12 +120,13 @@ public class HillGUI extends javax.swing.JPanel {
             {-key[1][0], key[0][0]}
         };
 
+        
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
                 inverseKey[i][j] = mod(inverseKey[i][j] * determinantInverse, 26);
             }
         }
-
+                
         return inverseKey;
     }
 
@@ -362,6 +369,14 @@ public class HillGUI extends javax.swing.JPanel {
     private void btnGiaiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiMaActionPerformed
         String ciphertext = txtBanMa.getText().toUpperCase();
         String key = txtKhoaKofBanMa.getText();
+         if (ciphertext.equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập bản mã", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if (key.equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập khóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
 
         try {
             int[][] keyMatrix = getKeyMatrix(key);
@@ -379,6 +394,14 @@ public class HillGUI extends javax.swing.JPanel {
     private void btnMaHoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaHoaActionPerformed
         String plaintext = txtBanRo.getText().toUpperCase();
         String key = txtKhoaKofBanRo.getText();
+        if (plaintext.equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập bản rõ", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if (key.equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập khóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         try {
             int[][] keyMatrix = getKeyMatrix(key);
             if (isValidKey(keyMatrix)) {
