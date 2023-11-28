@@ -56,14 +56,19 @@ public class GiaoDienGUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         pnCaesarCipher = new javax.swing.JPanel();
         lblCeasarCipher = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         pnAffine = new javax.swing.JPanel();
         lblAffine = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         pnSubstitution = new javax.swing.JPanel();
         lblSubstitution = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         pnVigenere = new javax.swing.JPanel();
         lblVigenere = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         pnHill = new javax.swing.JPanel();
         lblHill = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         pnRSA = new javax.swing.JPanel();
         lblRSA = new javax.swing.JLabel();
         pnView = new javax.swing.JPanel();
@@ -99,8 +104,8 @@ public class GiaoDienGUI extends javax.swing.JFrame {
             pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnHeaderLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 894, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnHeaderLayout.setVerticalGroup(
@@ -127,9 +132,10 @@ public class GiaoDienGUI extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,27 +149,38 @@ public class GiaoDienGUI extends javax.swing.JFrame {
         jLabel4.getAccessibleContext().setAccessibleName("");
 
         pnCaesarCipher.setBackground(new java.awt.Color(204, 242, 244));
+        pnCaesarCipher.setPreferredSize(new java.awt.Dimension(222, 45));
 
         lblCeasarCipher.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         lblCeasarCipher.setText("Caeser Cipher");
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-line-24.png"))); // NOI18N
 
         javax.swing.GroupLayout pnCaesarCipherLayout = new javax.swing.GroupLayout(pnCaesarCipher);
         pnCaesarCipher.setLayout(pnCaesarCipherLayout);
         pnCaesarCipherLayout.setHorizontalGroup(
             pnCaesarCipherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnCaesarCipherLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblCeasarCipher, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblCeasarCipher, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnCaesarCipherLayout.setVerticalGroup(
             pnCaesarCipherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblCeasarCipher, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pnAffine.setBackground(new java.awt.Color(204, 242, 244));
+        pnAffine.setPreferredSize(new java.awt.Dimension(224, 45));
 
         lblAffine.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         lblAffine.setText("Affine");
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-line-24.png"))); // NOI18N
 
         javax.swing.GroupLayout pnAffineLayout = new javax.swing.GroupLayout(pnAffine);
         pnAffine.setLayout(pnAffineLayout);
@@ -171,11 +188,14 @@ public class GiaoDienGUI extends javax.swing.JFrame {
             pnAffineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnAffineLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblAffine, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblAffine, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnAffineLayout.setVerticalGroup(
             pnAffineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblAffine, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pnSubstitution.setBackground(new java.awt.Color(204, 242, 244));
@@ -183,17 +203,23 @@ public class GiaoDienGUI extends javax.swing.JFrame {
         lblSubstitution.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         lblSubstitution.setText("Substitution");
 
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-line-24.png"))); // NOI18N
+
         javax.swing.GroupLayout pnSubstitutionLayout = new javax.swing.GroupLayout(pnSubstitution);
         pnSubstitution.setLayout(pnSubstitutionLayout);
         pnSubstitutionLayout.setHorizontalGroup(
             pnSubstitutionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnSubstitutionLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblSubstitution, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblSubstitution, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnSubstitutionLayout.setVerticalGroup(
             pnSubstitutionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblSubstitution, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pnVigenere.setBackground(new java.awt.Color(204, 242, 244));
@@ -201,17 +227,23 @@ public class GiaoDienGUI extends javax.swing.JFrame {
         lblVigenere.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         lblVigenere.setText("Vigenère");
 
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-line-24.png"))); // NOI18N
+
         javax.swing.GroupLayout pnVigenereLayout = new javax.swing.GroupLayout(pnVigenere);
         pnVigenere.setLayout(pnVigenereLayout);
         pnVigenereLayout.setHorizontalGroup(
             pnVigenereLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnVigenereLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblVigenere, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblVigenere, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnVigenereLayout.setVerticalGroup(
             pnVigenereLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblVigenere, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pnHill.setBackground(new java.awt.Color(204, 242, 244));
@@ -219,17 +251,23 @@ public class GiaoDienGUI extends javax.swing.JFrame {
         lblHill.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         lblHill.setText("Hill");
 
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-line-24.png"))); // NOI18N
+
         javax.swing.GroupLayout pnHillLayout = new javax.swing.GroupLayout(pnHill);
         pnHill.setLayout(pnHillLayout);
         pnHillLayout.setHorizontalGroup(
             pnHillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnHillLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblHill, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblHill, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnHillLayout.setVerticalGroup(
             pnHillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblHill, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pnRSA.setBackground(new java.awt.Color(204, 242, 244));
@@ -245,7 +283,7 @@ public class GiaoDienGUI extends javax.swing.JFrame {
         pnRSA.setLayout(pnRSALayout);
         pnRSALayout.setHorizontalGroup(
             pnRSALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 225, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(pnRSALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRSALayout.createSequentialGroup()
                     .addContainerGap()
@@ -262,10 +300,10 @@ public class GiaoDienGUI extends javax.swing.JFrame {
         pnMenu.setLayout(pnMenuLayout);
         pnMenuLayout.setHorizontalGroup(
             pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnCaesarCipher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnCaesarCipher, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnAffine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnAffine, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
             .addComponent(pnSubstitution, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnVigenere, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnHill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -308,7 +346,7 @@ public class GiaoDienGUI extends javax.swing.JFrame {
             pnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnViewLayout.createSequentialGroup()
                 .addComponent(jLabel10)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 1068, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnViewLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel11))
@@ -368,9 +406,14 @@ public class GiaoDienGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblAffine;
     private javax.swing.JLabel lblCeasarCipher;

@@ -39,9 +39,19 @@ public class AffineGUI extends javax.swing.JPanel {
         return vals;
     }
 
-    // Kiểm tra khóa, điều kiện a (1 < a < 26, gcd(a, 26) = 1)
+    // Kiểm tra khóa, điều kiện a (1 < a, gcd(a, 26) = 1)
     public static boolean isValidKey(int a) {
-        return a > 0 && a < ALPHA_SIZE && extendedEuclidean(a, ALPHA_SIZE)[0] == 1;
+        return a > 1 && a < Integer.MAX_VALUE && gcd(a, ALPHA_SIZE) == 1;
+    }
+
+// Tìm Ước chung lớn nhất của hai số
+    private static int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
     }
 
     // Mã hóa Affine
@@ -66,27 +76,27 @@ public class AffineGUI extends javax.swing.JPanel {
 
     // Giải mã Affine
     public static String decrypt(String ciphertext, int a, int b) {
-    StringBuilder plaintext = new StringBuilder();
-    int[] vals = extendedEuclidean(a, ALPHA_SIZE);
-    int inverseA = vals[1];
-    for (char ch : ciphertext.toCharArray()) {
-        if (Character.isLetter(ch)) {
-            int charIndex = Character.toUpperCase(ch) - 'A';
-            int decryptedIndex = (inverseA * (charIndex - b + ALPHA_SIZE)) % ALPHA_SIZE;
-            if (decryptedIndex < 0) {
-                decryptedIndex += ALPHA_SIZE; // Đảm bảo decryptedIndex không âm
+        StringBuilder plaintext = new StringBuilder();
+        int[] vals = extendedEuclidean(a, ALPHA_SIZE);
+        int inverseA = vals[1];
+        for (char ch : ciphertext.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                int charIndex = Character.toUpperCase(ch) - 'A';
+                int decryptedIndex = (inverseA * (charIndex - b + ALPHA_SIZE)) % ALPHA_SIZE;
+                if (decryptedIndex < 0) {
+                    decryptedIndex += ALPHA_SIZE; // Đảm bảo decryptedIndex không âm
+                }
+                char decryptedChar = (char) ((decryptedIndex + ALPHA_SIZE) % ALPHA_SIZE + 'A'); // Giữ nguyên kiểu chữ cái gốc
+                if (Character.isLowerCase(ch)) {
+                    decryptedChar = Character.toLowerCase(decryptedChar);
+                }
+                plaintext.append(decryptedChar);
+            } else {
+                plaintext.append(ch);
             }
-            char decryptedChar = (char) ((decryptedIndex + ALPHA_SIZE) % ALPHA_SIZE + 'A'); // Giữ nguyên kiểu chữ cái gốc
-            if (Character.isLowerCase(ch)) {
-                decryptedChar = Character.toLowerCase(decryptedChar);
-            }
-            plaintext.append(decryptedChar);
-        } else {
-            plaintext.append(ch);
         }
+        return plaintext.toString();
     }
-    return plaintext.toString();
-}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -271,7 +281,7 @@ public class AffineGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGiaiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiMaActionPerformed
-        AffineCipher affineCipher = new AffineCipher();
+        
         String plaintext = txtBanMa.getText();
         String aInput = txtAofBanMa.getText();
         String bInput = txtBofBanMa.getText();

@@ -283,6 +283,12 @@ public class VigenereGUI extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
+    //Kiểm tra khóa truyền vào phải là chữ
+
+    private boolean isAlphabetic(String input) {
+        return input.matches("^[a-zA-Z]+$");
+    }
+
     private static int generateRandomNumber(int max) {
         Random random = new Random();
         return random.nextInt(max) + 1; // Chỉnh sửa ở đây
@@ -349,6 +355,19 @@ public class VigenereGUI extends javax.swing.JPanel {
         String key = txtKhoaKofBanMa.getText().toUpperCase();
         StringBuilder plaintext = new StringBuilder();
 
+        if (key.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập khóa trước khi giải mã.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!isAlphabetic(key)) {
+            JOptionPane.showMessageDialog(null, "Khóa chỉ chứa chữ cái. Vui lòng bỏ các khoảng trống, số và ký tự đặc biệt", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (key.length() < 2) {
+            JOptionPane.showMessageDialog(null, "Khóa phải lớn hơn 2 ký tự", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         for (int i = 0, j = 0; i < ciphertext.length(); i++) {
             char charToDecrypt = ciphertext.charAt(i);
 
@@ -371,7 +390,18 @@ public class VigenereGUI extends javax.swing.JPanel {
         String plaintext = txtBanRo.getText().toUpperCase();
         String key = txtKhoaKofBanRo.getText().toUpperCase();
         StringBuilder ciphertext = new StringBuilder();
-
+        if (key.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập khóa trước khi mã hóa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!isAlphabetic(key)) {
+            JOptionPane.showMessageDialog(null, "Khóa chỉ chứa chữ cái. Vui lòng bỏ các khoảng trống, số và ký tự đặc biệt", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (key.length() < 2) {
+            JOptionPane.showMessageDialog(null, "Khóa phải lớn hơn 2 ký tự", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         for (int i = 0, j = 0; i < plaintext.length(); i++) {
             char charToEncrypt = plaintext.charAt(i);
 

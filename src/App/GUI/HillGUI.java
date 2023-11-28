@@ -4,6 +4,9 @@
  */
 package App.GUI;
 
+import java.security.SecureRandom;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Phuc Toan
@@ -122,6 +125,69 @@ public class HillGUI extends javax.swing.JPanel {
 
         return inverseKey;
     }
+    //Hàm random ngẫu nhiên khóa
+    private static final int[] VALID_INVERSES = {1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25};
+
+    public static int[][] generateRandomKey() {
+        SecureRandom random = new SecureRandom();
+        int[][] keyMatrix;
+
+        do {
+            keyMatrix = new int[2][2];
+
+            // Sinh ngẫu nhiên các giá trị cho ma trận key
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    keyMatrix[i][j] = random.nextInt(26); // Số nguyên từ 0 đến 25
+                }
+            }
+
+            // Tính determinant và inverse
+            int determinant = keyMatrix[0][0] * keyMatrix[1][1] - keyMatrix[0][1] * keyMatrix[1][0];
+            int determinantInverse = modInverseHill(determinant, 26);
+
+            // Kiểm tra xem determinantInverse có thuộc {1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25} không
+            if (isValidDeterminantInverse(determinantInverse)) {
+                // Chọn một phần tử nghịch đảo phù hợp từ VALID_INVERSES
+                int chosenInverse = VALID_INVERSES[random.nextInt(VALID_INVERSES.length)];
+
+                // Áp dụng inverse cho ma trận key
+                keyMatrix = applyInverse(keyMatrix, determinantInverse, chosenInverse);
+            }
+        } while (!isValidKey(keyMatrix));
+
+        return keyMatrix;
+    }
+
+    private static boolean isValidDeterminantInverse(int determinantInverse) {
+        // Kiểm tra xem determinantInverse có thuộc {1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25} không
+        int[] validValues = {1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25};
+        for (int value : validValues) {
+            if (determinantInverse == value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String keyMatrixToString(int[][] keyMatrix) {
+        StringBuilder keyString = new StringBuilder();
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                keyString.append(keyMatrix[i][j]).append(" ");
+            }
+        }
+        return keyString.toString().trim();
+    }
+
+    private static int[][] applyInverse(int[][] key, int determinantInverse, int chosenInverse) {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                key[i][j] = mod(key[i][j] * determinantInverse * chosenInverse, 26);
+            }
+        }
+        return key;
+    }
 
     private static int modInverseHill(int a, int m) {
         a = mod(a, m);
@@ -130,7 +196,7 @@ public class HillGUI extends javax.swing.JPanel {
                 return x;
             }
         }
-        throw new RuntimeException("Modular inverse does not exist.");
+        throw new RuntimeException("Phần tử nghịch đảo modulo không tồn tại.");
     }
 
     private static int mod(int a, int m) {
@@ -138,11 +204,9 @@ public class HillGUI extends javax.swing.JPanel {
     }
 
     private int[][] getKeyMatrix(String key) {
-        // Loại bỏ dấu ngoặc nếu có
-        key = key.replaceAll("[{}]", "");
 
         // Chuyển key thành một mảng số nguyên
-        String[] keyValues = key.split("\\s*,\\s*");
+        String[] keyValues = key.split("\\s+");
         int[] keyArray = new int[keyValues.length];
 
         for (int i = 0; i < keyValues.length; i++) {
@@ -158,22 +222,29 @@ public class HillGUI extends javax.swing.JPanel {
             keyMatrix[1][1] = keyArray[3];
             return keyMatrix;
         } else {
-            throw new RuntimeException("Invalid key format. Please enter 4 integers separated by commas.");
+            throw new RuntimeException("Định dạng khóa không hợp lệ. Vui lòng nhập 4 số nguyên, cách nhau bởi khoảng trắng");
         }
     }
 
-    private boolean isValidKey(int[][] key) {
+    private static boolean isValidKey(int[][] key) {
+        // Kiểm tra tính hợp lệ của determinantInverse
         int determinant = key[0][0] * key[1][1] - key[0][1] * key[1][0];
         int determinantInverse = modInverseHill(determinant, 26);
 
-        // Kiểm tra xem determinantInverse có thuộc {1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25} không
-        int[] validValues = {1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25};
-        for (int value : validValues) {
-            if (determinantInverse == value) {
-                return true;
+        if (!isValidDeterminantInverse(determinantInverse)) {
+            return false;
+        }
+
+        // Kiểm tra giá trị của từng phần tử trong ma trận khóa
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (key[i][j] < 0 || key[i][j] >= 26) {
+                    return false;
+                }
             }
         }
-        return false;
+
+        return true;
     }
 
     @SuppressWarnings("unchecked")
@@ -188,6 +259,9 @@ public class HillGUI extends javax.swing.JPanel {
         txtBanMa = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         btnGiaiMa = new javax.swing.JButton();
+        btnRandomBanMa = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtBanRo = new javax.swing.JTextArea();
@@ -195,6 +269,8 @@ public class HillGUI extends javax.swing.JPanel {
         btnMaHoa = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        btnRandomBanRo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         jPanel4.setPreferredSize(new java.awt.Dimension(1153, 689));
@@ -208,7 +284,7 @@ public class HillGUI extends javax.swing.JPanel {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtKhoaKofBanMa.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jPanel2.add(txtKhoaKofBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 372, 330, 45));
+        jPanel2.add(txtKhoaKofBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 372, 290, 45));
 
         txtBanMa.setColumns(20);
         txtBanMa.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
@@ -228,17 +304,39 @@ public class HillGUI extends javax.swing.JPanel {
                 btnGiaiMaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnGiaiMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 106, 47));
+        jPanel2.add(btnGiaiMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 560, 106, 47));
+
+        btnRandomBanMa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnRandomBanMa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-dice-30.png"))); // NOI18N
+        btnRandomBanMa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRandomBanMa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRandomBanMaMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnRandomBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, 40, 50));
+
+        jLabel7.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        jLabel7.setText("Cách nhập khóa: Nhập ma trận 2x2");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 496, 45));
+
+        jLabel8.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        jLabel8.setText("Ví dụ: {3,2,3,5}");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 496, 45));
 
         jPanel3.setBackground(new java.awt.Color(244, 249, 249));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bản rõ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 1, 24))); // NOI18N
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtBanRo.setColumns(20);
         txtBanRo.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
         txtBanRo.setRows(5);
         jScrollPane2.setViewportView(txtBanRo);
 
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 44, 504, 303));
+
         txtKhoaKofBanRo.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        jPanel3.add(txtKhoaKofBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 381, 290, 45));
 
         btnMaHoa.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
         btnMaHoa.setText("Mã hóa");
@@ -247,58 +345,29 @@ public class HillGUI extends javax.swing.JPanel {
                 btnMaHoaActionPerformed(evt);
             }
         });
+        jPanel3.add(btnMaHoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 560, 118, 49));
 
         jLabel4.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         jLabel4.setText("Khóa dịch k");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 382, 149, 45));
 
         jLabel5.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
-        jLabel5.setText("Cách nhập khóa: Ví dụ {3,2,3,5}");
+        jLabel5.setText("Ví dụ: {3,2,3,5}");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 496, 45));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtKhoaKofBanRo, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28))))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(190, 190, 190)
-                .addComponent(btnMaHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(365, Short.MAX_VALUE)))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(txtKhoaKofBanRo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(btnMaHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(347, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(224, 224, 224)))
-        );
+        jLabel6.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        jLabel6.setText("Cách nhập khóa: Nhập ma trận 2x2");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 444, 496, 45));
 
-        jLabel5.getAccessibleContext().setAccessibleName("Cách nhập khóa: Ví dụ {3,2,3,5}");
+        btnRandomBanRo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnRandomBanRo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-dice-30.png"))); // NOI18N
+        btnRandomBanRo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRandomBanRo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRandomBanRoMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnRandomBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 380, 40, 50));
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
         jLabel1.setText("HỆ MÃ HILL");
@@ -308,31 +377,27 @@ public class HillGUI extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(515, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(443, 443, 443))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57))))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(603, Short.MAX_VALUE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 43, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 701));
@@ -372,7 +437,9 @@ public class HillGUI extends javax.swing.JPanel {
                 txtBanRo.setText("Không thể giải mã với ma trận khóa đã cho. Không hợp lệ.");
             }
         } catch (Exception e) {
-            txtBanRo.setText("Không thể giải mã với ma trận khóa đã cho. " + e.getMessage());
+            txtBanRo.setText("Không thể giải mã với ma trận khóa đã cho. ");
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+
         }
     }//GEN-LAST:event_btnGiaiMaActionPerformed
 
@@ -388,18 +455,65 @@ public class HillGUI extends javax.swing.JPanel {
                 txtBanMa.setText("Không thể mã hóa với ma trận khóa đã cho. Không hợp lệ.");
             }
         } catch (Exception e) {
-            txtBanMa.setText("Không thể mã hóa với ma trận khóa đã cho. " + e.getMessage());
+            txtBanMa.setText("Không thể mã hóa với ma trận khóa đã cho. ");
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+
         }
     }//GEN-LAST:event_btnMaHoaActionPerformed
+
+    private void btnRandomBanRoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRandomBanRoMouseClicked
+        try {
+            txtKhoaKofBanRo.setText("");
+            int[][] randomKey;
+            boolean isValidKey = false;
+
+            while (!isValidKey) {
+                randomKey = generateRandomKey();
+                isValidKey = isValidKey(randomKey);
+
+                if (isValidKey) {
+                    String keyString = keyMatrixToString(randomKey);
+                    txtKhoaKofBanRo.setText(keyString);
+                }
+            }
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, "Không thể tạo khóa ngẫu nhiên. " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRandomBanRoMouseClicked
+
+    private void btnRandomBanMaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRandomBanMaMouseClicked
+        try {
+            txtKhoaKofBanMa.setText("");
+            int[][] randomKey;
+            boolean isValidKey = false;
+
+            while (!isValidKey) {
+                randomKey = generateRandomKey();
+                isValidKey = isValidKey(randomKey);
+
+                if (isValidKey) {
+                    String keyString = keyMatrixToString(randomKey);
+                    txtKhoaKofBanMa.setText(keyString);
+                }
+            }
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, "Không thể tạo khóa ngẫu nhiên. " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRandomBanMaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGiaiMa;
     private javax.swing.JButton btnMaHoa;
+    private javax.swing.JLabel btnRandomBanMa;
+    private javax.swing.JLabel btnRandomBanRo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
