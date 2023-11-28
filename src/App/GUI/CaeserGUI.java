@@ -61,6 +61,7 @@ public class CaeserGUI extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         txtToiDaBanRo = new javax.swing.JTextField();
         btnOkBanRo = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1108, 702));
@@ -146,9 +147,9 @@ public class CaeserGUI extends javax.swing.JPanel {
 
         jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 44, 500, 303));
 
-        jLabel2.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        jLabel2.setText("Khóa dịch k");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 149, 45));
+        jLabel2.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        jLabel2.setText("Cách nhập khóa: Vd: 2");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 149, 45));
 
         txtKhoaKofBanRo.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
         jPanel3.add(txtKhoaKofBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 246, 45));
@@ -195,6 +196,10 @@ public class CaeserGUI extends javax.swing.JPanel {
 
         jPanel3.add(pnRandomNumberBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, 260, 40));
 
+        jLabel8.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
+        jLabel8.setText("Khóa dịch k");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 149, 45));
+
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 47, 537, 642));
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
@@ -240,10 +245,16 @@ public class CaeserGUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập khóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        int key = Integer.parseInt(txtKhoaKofBanRo.getText());
+        try {
+                    int key = Integer.parseInt(txtKhoaKofBanRo.getText());
+            String encryptedText = caesarCipher(inputText, key);
+            txtBanMa.setText(encryptedText);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Khóa không hợp lệ", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
 
-        String encryptedText = caesarCipher(inputText, key);
-        txtBanMa.setText(encryptedText);
+        
     }//GEN-LAST:event_btnMaHoaActionPerformed
 
     private void btnGiaiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiMaActionPerformed
@@ -340,6 +351,7 @@ public class CaeserGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

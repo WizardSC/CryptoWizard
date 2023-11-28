@@ -41,7 +41,7 @@ public class RSA_GUI extends javax.swing.JPanel {
     PrivateKey privateKey;
 
     private MaHoaRSA maHoaRSA = new MaHoaRSA();
-    
+
     byte[] encryptedDataGlobal = null;
 
     public RSA_GUI() {
@@ -320,7 +320,13 @@ public class RSA_GUI extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Bạn chưa nhập bản rõ", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
+            if (publicKey == null) {
+                JOptionPane.showMessageDialog(this, "Chưa nhập khóa công khai", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             // ma hoa voi public key
+            Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+
             byte[] plaintext = plainText.getBytes("UTF-8");
             byte[] encryptedData = maHoaRSA.RSAEncrypt(plaintext, publicKey);
             encryptedDataGlobal = encryptedData;
@@ -330,8 +336,8 @@ public class RSA_GUI extends javax.swing.JPanel {
             txtBanMa.setText(encryptedText);
         } catch (Exception ex) {
             Logger.getLogger(RSA_GUI.class.getName()).log(Level.SEVERE, null, ex);
-                            JOptionPane.showMessageDialog(this, "Không thể mã hóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                return;
+            JOptionPane.showMessageDialog(this, "Không thể mã hóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
 
         }
     }//GEN-LAST:event_btnMaHoaActionPerformed
@@ -343,18 +349,24 @@ public class RSA_GUI extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Bạn chưa nhập bản mã", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
+            if (privateKey == null) {
+                JOptionPane.showMessageDialog(this, "Chưa nhập khóa bí mật", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             // Gọi hàm giải mã 
-            byte[] encryptedData = encryptedDataGlobal;
+            Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+
+            byte[] encryptedData = Base64.getDecoder().decode(cipherText);
             byte[] decryptedData = maHoaRSA.RSADecrypt(encryptedData, privateKey);
             String decryptedText = new String(decryptedData, "UTF-8");
 
             // Hiển thị kết quả lên giao diện
             txtBanRo.setText(decryptedText);
         } catch (Exception ex) {
-            
+
             Logger.getLogger(RSA_GUI.class.getName()).log(Level.SEVERE, null, ex);
-                            JOptionPane.showMessageDialog(this, "Không thể giải mã với bản mã và khóa bí mật", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                return;
+            JOptionPane.showMessageDialog(this, "Không thể giải mã với bản mã và khóa bí mật", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
 
         }
     }//GEN-LAST:event_btnGiaiMaActionPerformed
@@ -394,15 +406,15 @@ public class RSA_GUI extends javax.swing.JPanel {
             try {
                 // Lấy đường dẫn tệp được chọn bởi người dùng
                 String selectedFilePath = fileChooser.getSelectedFile().getAbsolutePath();
-                
+
                 // luu khoa cong khai
                 maHoaRSA.saveKeyToFile(publicKey, selectedFilePath);
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(RSA_GUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         fileChooser = new JFileChooser("src/App/file/RSA");
         result = fileChooser.showSaveDialog(this); // this là JPanel hoặc JFrame chứa nút
 
@@ -410,22 +422,21 @@ public class RSA_GUI extends javax.swing.JPanel {
             try {
                 // Lấy đường dẫn tệp được chọn bởi người dùng
                 String selectedFilePath = fileChooser.getSelectedFile().getAbsolutePath();
-                
+
                 // luu khoa bi mat
                 maHoaRSA.saveKeyToFile(privateKey, selectedFilePath);
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(RSA_GUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }//GEN-LAST:event_btnLuuKhoaBanRoActionPerformed
 
     private void btnChoosePublicKeyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoosePublicKeyActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser("src/App/file/RSA");
         int result = fileChooser.showOpenDialog(jPanel3);
-
 
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
@@ -447,11 +458,10 @@ public class RSA_GUI extends javax.swing.JPanel {
         int result = fileChooser.showOpenDialog(jPanel3);
 
         //eadFile readFileText = new readFile();
-
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
                 File selectedFile = fileChooser.getSelectedFile();
-                                // doc khoa tu file va cap nhat lai khoa
+                // doc khoa tu file va cap nhat lai khoa
 
                 PrivateKey key = maHoaRSA.readPrivateKeyFromFile(selectedFile.getPath());
                 privateKey = key;
@@ -476,7 +486,7 @@ public class RSA_GUI extends javax.swing.JPanel {
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-                            // doc ban ma tu file 
+            // doc ban ma tu file 
 
             String banMa = readFileText.readTextFromFile(selectedFile.getPath());
             txtBanMa.setText(banMa);
@@ -494,7 +504,7 @@ public class RSA_GUI extends javax.swing.JPanel {
 
             // Lấy khóa từ trường text hoặc từ đâu đó trong ứng dụng
             String banMa = txtBanMa.getText();
-            try (FileWriter writer = new FileWriter(selectedFilePath + ".txt")) {
+            try ( FileWriter writer = new FileWriter(selectedFilePath + ".txt")) {
                 writer.write(banMa);
                 writer.close();
                 JOptionPane.showMessageDialog(this, "Bản mã đã được lưu vào " + selectedFilePath + ".txt", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -502,7 +512,7 @@ public class RSA_GUI extends javax.swing.JPanel {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Lỗi khi lưu bản mã!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
-            
+
         }
     }//GEN-LAST:event_btnXuatBanMaActionPerformed
 

@@ -347,6 +347,14 @@ public class VigenereGUI extends javax.swing.JPanel {
     private void btnGiaiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiMaActionPerformed
         String ciphertext = txtBanMa.getText().toUpperCase();
         String key = txtKhoaKofBanMa.getText().toUpperCase();
+        if (ciphertext.equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập bản rõ", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if ( key.equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập khóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         StringBuilder plaintext = new StringBuilder();
 
         for (int i = 0, j = 0; i < ciphertext.length(); i++) {
@@ -370,6 +378,14 @@ public class VigenereGUI extends javax.swing.JPanel {
     private void btnMaHoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaHoaActionPerformed
         String plaintext = txtBanRo.getText().toUpperCase();
         String key = txtKhoaKofBanRo.getText().toUpperCase();
+        if (plaintext.equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập bản rõ", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if ( key.equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập khóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         StringBuilder ciphertext = new StringBuilder();
 
         for (int i = 0, j = 0; i < plaintext.length(); i++) {
