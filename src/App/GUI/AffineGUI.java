@@ -17,6 +17,77 @@ public class AffineGUI extends javax.swing.JPanel {
         initComponents();
     }
 
+    private static final int ALPHA_SIZE = 26;
+
+    // Hàm Euclid mở rộng để tính đảo ngược modulo
+    private static int[] extendedEuclidean(int a, int b) {
+        int[] vals = new int[3];
+        int q, r, x, y;
+        if (b == 0) {
+            vals[0] = a;
+            vals[1] = 1;
+            vals[2] = 0;
+        } else {
+            r = a % b;
+            q = (a - r) / b;
+            vals = extendedEuclidean(b, r);
+            x = vals[2];
+            y = vals[1] - q * vals[2];
+            vals[1] = x;
+            vals[2] = y;
+        }
+        return vals;
+    }
+
+    // Kiểm tra khóa, điều kiện a (1 < a < 26, gcd(a, 26) = 1)
+    public static boolean isValidKey(int a) {
+        return a > 0 && a < ALPHA_SIZE && extendedEuclidean(a, ALPHA_SIZE)[0] == 1;
+    }
+
+    // Mã hóa Affine
+    public static String encrypt(String plaintext, int a, int b) {
+        StringBuilder ciphertext = new StringBuilder();
+        for (char ch : plaintext.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                int charIndex = Character.toUpperCase(ch) - 'A';
+                int encryptedIndex = (a * charIndex + b) % ALPHA_SIZE;
+                char encryptedChar = (char) ((encryptedIndex + ALPHA_SIZE) % ALPHA_SIZE + 'A');
+                // Bạn cũng có thể sử dụng 'a' thay vì 'A' nếu bạn muốn giữ nguyên kí tự viết thường
+                if (Character.isLowerCase(ch)) {
+                    encryptedChar = Character.toLowerCase(encryptedChar);
+                }
+                ciphertext.append(encryptedChar);
+            } else {
+                ciphertext.append(ch);
+            }
+        }
+        return ciphertext.toString();
+    }
+
+    // Giải mã Affine
+    public static String decrypt(String ciphertext, int a, int b) {
+    StringBuilder plaintext = new StringBuilder();
+    int[] vals = extendedEuclidean(a, ALPHA_SIZE);
+    int inverseA = vals[1];
+    for (char ch : ciphertext.toCharArray()) {
+        if (Character.isLetter(ch)) {
+            int charIndex = Character.toUpperCase(ch) - 'A';
+            int decryptedIndex = (inverseA * (charIndex - b + ALPHA_SIZE)) % ALPHA_SIZE;
+            if (decryptedIndex < 0) {
+                decryptedIndex += ALPHA_SIZE; // Đảm bảo decryptedIndex không âm
+            }
+            char decryptedChar = (char) ((decryptedIndex + ALPHA_SIZE) % ALPHA_SIZE + 'A'); // Giữ nguyên kiểu chữ cái gốc
+            if (Character.isLowerCase(ch)) {
+                decryptedChar = Character.toLowerCase(decryptedChar);
+            }
+            plaintext.append(decryptedChar);
+        } else {
+            plaintext.append(ch);
+        }
+    }
+    return plaintext.toString();
+}
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -24,17 +95,22 @@ public class AffineGUI extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        txtKhoaKbanMa = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtBanMa = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         btnGiaiMa = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txtAofBanMa = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtBofBanMa = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtBanRo = new javax.swing.JTextArea();
-        txtKhoaK = new javax.swing.JTextField();
+        txtBofBanRo = new javax.swing.JTextField();
         btnMaHoa = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        txtAofBanRo = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -48,14 +124,6 @@ public class AffineGUI extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bản mã", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 1, 24))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtKhoaKbanMa.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        txtKhoaKbanMa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKhoaKbanMaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtKhoaKbanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 372, 330, 45));
-
         txtBanMa.setColumns(20);
         txtBanMa.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
         txtBanMa.setRows(5);
@@ -65,7 +133,7 @@ public class AffineGUI extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         jLabel3.setText("Khóa dịch k");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 372, 149, 45));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, 149, 45));
 
         btnGiaiMa.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
         btnGiaiMa.setText("Giải mã");
@@ -76,20 +144,48 @@ public class AffineGUI extends javax.swing.JPanel {
         });
         jPanel2.add(btnGiaiMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 106, 47));
 
+        jLabel7.setFont(new java.awt.Font("Cambria", 1, 20)); // NOI18N
+        jLabel7.setText("Nhập a");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 80, 45));
+
+        txtAofBanMa.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        txtAofBanMa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAofBanMaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtAofBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 100, 45));
+
+        jLabel8.setFont(new java.awt.Font("Cambria", 1, 20)); // NOI18N
+        jLabel8.setText("Nhập b");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 420, 80, 45));
+
+        txtBofBanMa.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        txtBofBanMa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBofBanMaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtBofBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 420, 100, 45));
+
         jPanel3.setBackground(new java.awt.Color(244, 249, 249));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bản rõ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 1, 24))); // NOI18N
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtBanRo.setColumns(20);
         txtBanRo.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
         txtBanRo.setRows(5);
         jScrollPane2.setViewportView(txtBanRo);
 
-        txtKhoaK.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        txtKhoaK.addActionListener(new java.awt.event.ActionListener() {
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 44, 504, 303));
+
+        txtBofBanRo.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        txtBofBanRo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKhoaKActionPerformed(evt);
+                txtBofBanRoActionPerformed(evt);
             }
         });
+        jPanel3.add(txtBofBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, 100, 45));
 
         btnMaHoa.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
         btnMaHoa.setText("Mã hóa");
@@ -98,56 +194,27 @@ public class AffineGUI extends javax.swing.JPanel {
                 btnMaHoaActionPerformed(evt);
             }
         });
+        jPanel3.add(btnMaHoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 530, 118, 49));
 
-        jLabel4.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        jLabel4.setText("Khóa dịch k");
+        jLabel4.setFont(new java.awt.Font("Cambria", 1, 20)); // NOI18N
+        jLabel4.setText("Nhập b");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 80, 45));
 
-        jLabel5.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jLabel5.setText("Cách nhập khóa: Ví dụ 5 6");
+        txtAofBanRo.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        txtAofBanRo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAofBanRoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(txtAofBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, 100, 45));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtKhoaK, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28))))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(190, 190, 190)
-                .addComponent(btnMaHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(365, Short.MAX_VALUE)))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(txtKhoaK, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(btnMaHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(347, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(224, 224, 224)))
-        );
+        jLabel6.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
+        jLabel6.setText("Khóa dịch k");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 149, 45));
+
+        jLabel5.setFont(new java.awt.Font("Cambria", 1, 20)); // NOI18N
+        jLabel5.setText("Nhập a");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, 80, 45));
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
         jLabel1.setText("HỆ MÃ AFFINE");
@@ -157,31 +224,26 @@ public class AffineGUI extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(473, Short.MAX_VALUE)
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(443, 443, 443))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(57, 57, 57))))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(603, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 43, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 701));
@@ -210,24 +272,30 @@ public class AffineGUI extends javax.swing.JPanel {
 
     private void btnGiaiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiMaActionPerformed
         AffineCipher affineCipher = new AffineCipher();
-        String plaintext = txtBanMa.getText().toUpperCase();
-        String input = txtKhoaKbanMa.getText();
+        String plaintext = txtBanMa.getText();
+        String aInput = txtAofBanMa.getText();
+        String bInput = txtBofBanMa.getText();
 
-        String[] parts = input.split(" ");
-        int[] key = new int[2];
         try {
-            key[0] = Integer.parseInt(parts[0]);
-            key[1] = Integer.parseInt(parts[1]);
-            if (affineCipher.isValidKey(key[0])) {
+            int a = Integer.parseInt(aInput);
+            int b = Integer.parseInt(bInput);
+            if (b <= 0) {
+                JOptionPane.showMessageDialog(null, "Hệ số b phải lớn hơn 0", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                txtBofBanRo.setText("");
+                return;
+            }
+            if (isValidKey(a)) {
 
-                String decryptedText = affineCipher.decrypt(plaintext, key[0], key[1]);
-
+                String decryptedText = decrypt(plaintext, a, b);
                 txtBanRo.setText(decryptedText);
             } else {
+                JOptionPane.showMessageDialog(null, "Hệ số a không hợp lệ. Vui lòng nhập một giá trị khác.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 txtBanRo.setText("Không thể giải mã với khóa đã nhập.");
+                txtAofBanMa.setText("");
+                return;
             }
         } catch (NumberFormatException e) {
-                txtBanRo.setText("Không thể giải mã với khóa đã nhập.");
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập giá trị số cho hệ số a và hệ số b.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
 
 
@@ -235,36 +303,50 @@ public class AffineGUI extends javax.swing.JPanel {
 
     private void btnMaHoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaHoaActionPerformed
 
-        AffineCipher affineCipher = new AffineCipher();
-        String plaintext = txtBanRo.getText().toUpperCase();
-        String input = txtKhoaK.getText();
+        String plaintext = txtBanRo.getText();
+        String aInput = txtAofBanRo.getText();
+        String bInput = txtBofBanRo.getText();
 
-        String[] parts = input.split(" ");
-        int[] key = new int[2];
         try {
-            key[0] = Integer.parseInt(parts[0]);
-            key[1] = Integer.parseInt(parts[1]);
-            if (affineCipher.isValidKey(key[0])) {
-
-                String encryptedText = affineCipher.encrypt(plaintext, key[0], key[1]);
-
+            int a = Integer.parseInt(aInput);
+            int b = Integer.parseInt(bInput);
+            if (b <= 0) {
+                JOptionPane.showMessageDialog(null, "Hệ số b phải lớn hơn 0", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                txtBofBanRo.setText("");
+                return;
+            }
+            if (isValidKey(a)) {
+                String encryptedText = encrypt(plaintext, a, b);
                 txtBanMa.setText(encryptedText);
             } else {
+                JOptionPane.showMessageDialog(null, "Hệ số a không hợp lệ. Vui lòng nhập một giá trị khác.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 txtBanMa.setText("Không thể mã hóa với khóa đã nhập.");
+                txtAofBanRo.setText("");
+                return;
             }
         } catch (NumberFormatException e) {
-            txtBanMa.setText("Không thể mã hóa với khóa đã nhập.");
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập giá trị số cho hệ số a và hệ số b.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+
+//            txtBanMa.setText("Không thể mã hóa với khóa đã nhập.");
         }
 
     }//GEN-LAST:event_btnMaHoaActionPerformed
 
-    private void txtKhoaKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKhoaKActionPerformed
+    private void txtBofBanRoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBofBanRoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtKhoaKActionPerformed
+    }//GEN-LAST:event_txtBofBanRoActionPerformed
 
-    private void txtKhoaKbanMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKhoaKbanMaActionPerformed
+    private void txtAofBanRoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAofBanRoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtKhoaKbanMaActionPerformed
+    }//GEN-LAST:event_txtAofBanRoActionPerformed
+
+    private void txtAofBanMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAofBanMaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAofBanMaActionPerformed
+
+    private void txtBofBanMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBofBanMaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBofBanMaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -274,15 +356,20 @@ public class AffineGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextField txtAofBanMa;
+    private javax.swing.JTextField txtAofBanRo;
     private javax.swing.JTextArea txtBanMa;
     private javax.swing.JTextArea txtBanRo;
-    private javax.swing.JTextField txtKhoaK;
-    private javax.swing.JTextField txtKhoaKbanMa;
+    private javax.swing.JTextField txtBofBanMa;
+    private javax.swing.JTextField txtBofBanRo;
     // End of variables declaration//GEN-END:variables
 }

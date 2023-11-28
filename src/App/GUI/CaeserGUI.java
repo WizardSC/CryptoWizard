@@ -77,7 +77,7 @@ public class CaeserGUI extends javax.swing.JPanel {
         jPanel2.add(txtKhoaKofBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, 246, 45));
 
         txtBanMa.setColumns(20);
-        txtBanMa.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
+        txtBanMa.setFont(new java.awt.Font("Cambria", 0, 22)); // NOI18N
         txtBanMa.setLineWrap(true);
         txtBanMa.setRows(5);
         txtBanMa.setWrapStyleWord(true);
@@ -138,7 +138,7 @@ public class CaeserGUI extends javax.swing.JPanel {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtBanRo.setColumns(20);
-        txtBanRo.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
+        txtBanRo.setFont(new java.awt.Font("Cambria", 0, 22)); // NOI18N
         txtBanRo.setLineWrap(true);
         txtBanRo.setRows(5);
         txtBanRo.setWrapStyleWord(true);
