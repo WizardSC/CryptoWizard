@@ -113,6 +113,7 @@ public class AffineGUI extends javax.swing.JPanel {
         txtAofBanMa = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtBofBanMa = new javax.swing.JTextField();
+        btnResetBanMa = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtBanRo = new javax.swing.JTextArea();
@@ -122,6 +123,7 @@ public class AffineGUI extends javax.swing.JPanel {
         txtAofBanRo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        btnResetBanRo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         jPanel4.setPreferredSize(new java.awt.Dimension(1153, 689));
@@ -178,6 +180,15 @@ public class AffineGUI extends javax.swing.JPanel {
         });
         jPanel2.add(txtBofBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 420, 100, 45));
 
+        btnResetBanMa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-reset-24.png"))); // NOI18N
+        btnResetBanMa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnResetBanMa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetBanMaMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnResetBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
         jPanel3.setBackground(new java.awt.Color(244, 249, 249));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bản rõ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 1, 24))); // NOI18N
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -225,6 +236,15 @@ public class AffineGUI extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Cambria", 1, 20)); // NOI18N
         jLabel5.setText("Nhập a");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, 80, 45));
+
+        btnResetBanRo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-reset-24.png"))); // NOI18N
+        btnResetBanRo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnResetBanRo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetBanRoMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnResetBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
         jLabel1.setText("HỆ MÃ AFFINE");
@@ -281,10 +301,24 @@ public class AffineGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGiaiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiMaActionPerformed
-        
+
         String plaintext = txtBanMa.getText();
         String aInput = txtAofBanMa.getText();
         String bInput = txtBofBanMa.getText();
+        if (plaintext.equals("")) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập thông điệp cần giải mã", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+
+        }
+        if (aInput.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập hệ số a", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        if (bInput.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập hệ số b", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
 
         try {
             int a = Integer.parseInt(aInput);
@@ -316,7 +350,19 @@ public class AffineGUI extends javax.swing.JPanel {
         String plaintext = txtBanRo.getText();
         String aInput = txtAofBanRo.getText();
         String bInput = txtBofBanRo.getText();
+        if (plaintext.equals("")) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập thông điệp cần mã hóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if (aInput.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập hệ số a", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
 
+        if (bInput.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập hệ số b", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         try {
             int a = Integer.parseInt(aInput);
             int b = Integer.parseInt(bInput);
@@ -358,10 +404,24 @@ public class AffineGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBofBanMaActionPerformed
 
+    private void btnResetBanRoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanRoMouseClicked
+        txtBanRo.setText("");
+        txtAofBanRo.setText("");
+        txtBofBanRo.setText("");
+    }//GEN-LAST:event_btnResetBanRoMouseClicked
+
+    private void btnResetBanMaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanMaMouseClicked
+        txtBanMa.setText("");
+        txtAofBanMa.setText("");
+        txtBofBanMa.setText("");
+    }//GEN-LAST:event_btnResetBanMaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGiaiMa;
     private javax.swing.JButton btnMaHoa;
+    private javax.swing.JLabel btnResetBanMa;
+    private javax.swing.JLabel btnResetBanRo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

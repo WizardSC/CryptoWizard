@@ -48,6 +48,7 @@ public class CaeserGUI extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         txtToiDaBanMa = new javax.swing.JTextField();
         btnOkBanMa = new javax.swing.JButton();
+        btnResetBanMa = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtBanRo = new javax.swing.JTextArea();
@@ -61,6 +62,7 @@ public class CaeserGUI extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         txtToiDaBanRo = new javax.swing.JTextField();
         btnOkBanRo = new javax.swing.JButton();
+        btnResetBanRo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1108, 702));
@@ -89,6 +91,7 @@ public class CaeserGUI extends javax.swing.JPanel {
         jLabel3.setText("Khóa dịch k");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 149, 45));
 
+        btnGiaiMa.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
         btnGiaiMa.setText("Giải mã");
         btnGiaiMa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,6 +134,15 @@ public class CaeserGUI extends javax.swing.JPanel {
 
         jPanel2.add(pnRandomNumberBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 260, 40));
 
+        btnResetBanMa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-reset-24.png"))); // NOI18N
+        btnResetBanMa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnResetBanMa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetBanMaMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnResetBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(561, 47, 530, 642));
 
         jPanel3.setBackground(new java.awt.Color(244, 249, 249));
@@ -153,6 +165,7 @@ public class CaeserGUI extends javax.swing.JPanel {
         txtKhoaKofBanRo.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
         jPanel3.add(txtKhoaKofBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 246, 45));
 
+        btnMaHoa.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
         btnMaHoa.setText("Mã hóa");
         btnMaHoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,6 +208,15 @@ public class CaeserGUI extends javax.swing.JPanel {
 
         jPanel3.add(pnRandomNumberBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, 260, 40));
 
+        btnResetBanRo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-reset-24.png"))); // NOI18N
+        btnResetBanRo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnResetBanRo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetBanRoMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnResetBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 47, 537, 642));
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
@@ -232,33 +254,43 @@ public class CaeserGUI extends javax.swing.JPanel {
 
     private void btnMaHoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaHoaActionPerformed
         String inputText = txtBanRo.getText();
-        if (inputText.equals("")) {
+        String keyText = txtKhoaKofBanRo.getText();
+        if (inputText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập bản rõ", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        if (txtKhoaKofBanRo.getText().equals("")) {
+
+        if (keyText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập khóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        int key = Integer.parseInt(txtKhoaKofBanRo.getText());
 
-        String encryptedText = caesarCipher(inputText, key);
-        txtBanMa.setText(encryptedText);
+        try {
+            int key = Integer.parseInt(keyText);
+            String encryptedText = caesarCipher(inputText, key);
+            txtBanMa.setText(encryptedText);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Khóa phải là một số nguyên", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtBanMa.setText("");
+        }
     }//GEN-LAST:event_btnMaHoaActionPerformed
 
     private void btnGiaiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiMaActionPerformed
-        try {
-            String ciphertext = txtBanMa.getText();
-            if (ciphertext.equals("")) {
-                JOptionPane.showMessageDialog(this, "Bạn chưa nhập bản mã", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-            if (txtKhoaKofBanMa.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Bạn chưa nhập khóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-            int shift = Integer.parseInt(txtKhoaKofBanMa.getText());
+        String ciphertext = txtBanMa.getText();
+        String keyText = txtKhoaKofBanMa.getText();
 
+        if (ciphertext.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập bản mã", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        if (keyText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập khóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        try {
+            int shift = Integer.parseInt(keyText);
             StringBuilder decryptedText = new StringBuilder();
 
             for (int i = 0; i < ciphertext.length(); i++) {
@@ -281,7 +313,8 @@ public class CaeserGUI extends javax.swing.JPanel {
 
             txtBanRo.setText(decryptedText.toString());
         } catch (NumberFormatException ex) {
-            txtBanRo.setText("Lỗi: Nhập giá trị không hợp lệ.");
+            JOptionPane.showMessageDialog(this, "Khóa phải là một số nguyên", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtBanRo.setText("");
         }
     }//GEN-LAST:event_btnGiaiMaActionPerformed
 
@@ -325,6 +358,22 @@ public class CaeserGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnRandomBanMaMouseClicked
 
+    private void btnResetBanRoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanRoMouseClicked
+        txtBanRo.setText("");
+        txtKhoaKofBanRo.setText("");
+        txtToiDaBanRo.setText("");
+        txtToiThieuBanRo.setText("");
+
+    }//GEN-LAST:event_btnResetBanRoMouseClicked
+
+    private void btnResetBanMaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanMaMouseClicked
+        txtBanMa.setText("");
+        txtKhoaKofBanMa.setText("");
+        txtToiDaBanMa.setText("");
+        txtToiThieuBanMa.setText("");
+
+    }//GEN-LAST:event_btnResetBanMaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGiaiMa;
@@ -333,6 +382,8 @@ public class CaeserGUI extends javax.swing.JPanel {
     private javax.swing.JButton btnOkBanRo;
     private javax.swing.JLabel btnRandomBanMa;
     private javax.swing.JLabel btnRandomBanRo;
+    private javax.swing.JLabel btnResetBanMa;
+    private javax.swing.JLabel btnResetBanRo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

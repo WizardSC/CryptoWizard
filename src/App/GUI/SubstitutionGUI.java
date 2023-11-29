@@ -108,6 +108,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
         btnTaoKhoaNgauNhienofBanMa = new javax.swing.JButton();
         btnChooseFileBanMa = new javax.swing.JButton();
         btnLuuKhoaBanMa = new javax.swing.JButton();
+        btnResetBanMa = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtBanRo = new javax.swing.JTextArea();
@@ -117,6 +118,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         btnTaoKhoaNgauNhienofBanRo = new javax.swing.JButton();
         btnLuuKhoaBanRo = new javax.swing.JButton();
+        btnResetBanRo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         jPanel4.setPreferredSize(new java.awt.Dimension(1153, 689));
@@ -130,7 +132,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtKhoaKofBanMa.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jPanel2.add(txtKhoaKofBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(184, 372, 330, 45));
+        jPanel2.add(txtKhoaKofBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, 330, 45));
 
         txtBanMa.setColumns(20);
         txtBanMa.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
@@ -139,11 +141,11 @@ public class SubstitutionGUI extends javax.swing.JPanel {
         txtBanMa.setWrapStyleWord(true);
         jScrollPane3.setViewportView(txtBanMa);
 
-        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 42, 502, 304));
+        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 46, 502, 300));
 
         jLabel3.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         jLabel3.setText("Khóa dịch k");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 372, 149, 45));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 149, 45));
 
         btnGiaiMa.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
         btnGiaiMa.setText("Giải mã");
@@ -152,7 +154,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
                 btnGiaiMaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnGiaiMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 514, 106, 47));
+        jPanel2.add(btnGiaiMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 530, 106, 47));
 
         btnTaoKhoaNgauNhienofBanMa.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         btnTaoKhoaNgauNhienofBanMa.setText("Tạo khóa ngẫu nhiên");
@@ -161,7 +163,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
                 btnTaoKhoaNgauNhienofBanMaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnTaoKhoaNgauNhienofBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 428, -1, 49));
+        jPanel2.add(btnTaoKhoaNgauNhienofBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, -1, 49));
 
         btnChooseFileBanMa.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         btnChooseFileBanMa.setText("Đọc khóa từ File");
@@ -170,7 +172,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
                 btnChooseFileBanMaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnChooseFileBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 429, -1, 47));
+        jPanel2.add(btnChooseFileBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, -1, 47));
 
         btnLuuKhoaBanMa.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         btnLuuKhoaBanMa.setText("Lưu khóa vào File");
@@ -179,10 +181,20 @@ public class SubstitutionGUI extends javax.swing.JPanel {
                 btnLuuKhoaBanMaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnLuuKhoaBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 429, -1, 47));
+        jPanel2.add(btnLuuKhoaBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 450, -1, 47));
+
+        btnResetBanMa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-reset-24.png"))); // NOI18N
+        btnResetBanMa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnResetBanMa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetBanMaMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnResetBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(244, 249, 249));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bản rõ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 1, 24))); // NOI18N
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtBanRo.setColumns(20);
         txtBanRo.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
@@ -191,7 +203,10 @@ public class SubstitutionGUI extends javax.swing.JPanel {
         txtBanRo.setWrapStyleWord(true);
         jScrollPane2.setViewportView(txtBanRo);
 
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 504, 303));
+
         txtKhoaKofBanRo.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        jPanel3.add(txtKhoaKofBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 338, 45));
 
         btnMaHoa.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
         btnMaHoa.setText("Mã hóa");
@@ -200,6 +215,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
                 btnMaHoaActionPerformed(evt);
             }
         });
+        jPanel3.add(btnMaHoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 540, 118, 49));
 
         btnChooseFileBanRo.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         btnChooseFileBanRo.setText("Đọc khóa từ File");
@@ -208,9 +224,11 @@ public class SubstitutionGUI extends javax.swing.JPanel {
                 btnChooseFileBanRoActionPerformed(evt);
             }
         });
+        jPanel3.add(btnChooseFileBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, -1, 47));
 
         jLabel4.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         jLabel4.setText("Khóa dịch k");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 149, 45));
 
         btnTaoKhoaNgauNhienofBanRo.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         btnTaoKhoaNgauNhienofBanRo.setText("Tạo khóa ngẫu nhiên");
@@ -219,6 +237,7 @@ public class SubstitutionGUI extends javax.swing.JPanel {
                 btnTaoKhoaNgauNhienofBanRoActionPerformed(evt);
             }
         });
+        jPanel3.add(btnTaoKhoaNgauNhienofBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, -1, 49));
 
         btnLuuKhoaBanRo.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         btnLuuKhoaBanRo.setText("Lưu khóa vào File");
@@ -227,59 +246,16 @@ public class SubstitutionGUI extends javax.swing.JPanel {
                 btnLuuKhoaBanRoActionPerformed(evt);
             }
         });
+        jPanel3.add(btnLuuKhoaBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 450, -1, 47));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(btnTaoKhoaNgauNhienofBanRo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnChooseFileBanRo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLuuKhoaBanRo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(181, 181, 181)
-                                .addComponent(btnMaHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtKhoaKofBanRo, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(365, Short.MAX_VALUE)))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(txtKhoaKofBanRo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTaoKhoaNgauNhienofBanRo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnChooseFileBanRo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLuuKhoaBanRo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addComponent(btnMaHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(347, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(224, 224, 224)))
-        );
+        btnResetBanRo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-reset-24.png"))); // NOI18N
+        btnResetBanRo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnResetBanRo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetBanRoMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnResetBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
         jLabel1.setText("HỆ MÃ SUBSTITUTION");
@@ -301,19 +277,20 @@ public class SubstitutionGUI extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(605, Short.MAX_VALUE)))
+                    .addContainerGap(603, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 47, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(46, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
         jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 701));
@@ -522,6 +499,17 @@ public class SubstitutionGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnLuuKhoaBanMaActionPerformed
 
+    private void btnResetBanRoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanRoMouseClicked
+        txtBanRo.setText("");
+        txtKhoaKofBanRo.setText("");
+        
+    }//GEN-LAST:event_btnResetBanRoMouseClicked
+
+    private void btnResetBanMaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanMaMouseClicked
+        txtBanMa.setText("");
+        txtKhoaKofBanMa.setText("");
+    }//GEN-LAST:event_btnResetBanMaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChooseFileBanMa;
@@ -530,6 +518,8 @@ public class SubstitutionGUI extends javax.swing.JPanel {
     private javax.swing.JButton btnLuuKhoaBanMa;
     private javax.swing.JButton btnLuuKhoaBanRo;
     private javax.swing.JButton btnMaHoa;
+    private javax.swing.JLabel btnResetBanMa;
+    private javax.swing.JLabel btnResetBanRo;
     private javax.swing.JButton btnTaoKhoaNgauNhienofBanMa;
     private javax.swing.JButton btnTaoKhoaNgauNhienofBanRo;
     private javax.swing.JLabel jLabel1;

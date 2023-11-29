@@ -55,6 +55,7 @@ public class VigenereGUI extends javax.swing.JPanel {
         btnOkBanMa = new javax.swing.JButton();
         btnChooseFileBanMa = new javax.swing.JButton();
         btnLuuKhoaBanMa = new javax.swing.JButton();
+        btnResetBanMa = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtBanRo = new javax.swing.JTextArea();
@@ -68,6 +69,7 @@ public class VigenereGUI extends javax.swing.JPanel {
         btnOkBanRo = new javax.swing.JButton();
         btnChooseFileBanRo = new javax.swing.JButton();
         btnLuuKhoaBanRo = new javax.swing.JButton();
+        btnResetBanRo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         jPanel4.setPreferredSize(new java.awt.Dimension(1153, 689));
@@ -87,7 +89,7 @@ public class VigenereGUI extends javax.swing.JPanel {
         txtBanMa.setWrapStyleWord(true);
         jScrollPane3.setViewportView(txtBanMa);
 
-        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 502, 304));
+        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 44, 502, 300));
 
         btnGiaiMa.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
         btnGiaiMa.setText("Giải mã");
@@ -117,7 +119,7 @@ public class VigenereGUI extends javax.swing.JPanel {
 
         pnRandomNumberBanMa.setBackground(new java.awt.Color(255, 255, 255));
         pnRandomNumberBanMa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        pnRandomNumberBanMa.setLayout(new java.awt.GridLayout());
+        pnRandomNumberBanMa.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Nhập m:");
@@ -153,6 +155,15 @@ public class VigenereGUI extends javax.swing.JPanel {
             }
         });
         jPanel2.add(btnLuuKhoaBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, -1, 47));
+
+        btnResetBanMa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-reset-24.png"))); // NOI18N
+        btnResetBanMa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnResetBanMa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetBanMaMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnResetBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(244, 249, 249));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bản rõ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 1, 24))); // NOI18N
@@ -195,7 +206,7 @@ public class VigenereGUI extends javax.swing.JPanel {
 
         pnRandomNumberBanRo.setBackground(new java.awt.Color(255, 255, 255));
         pnRandomNumberBanRo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        pnRandomNumberBanRo.setLayout(new java.awt.GridLayout());
+        pnRandomNumberBanRo.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Nhập m:");
@@ -231,6 +242,15 @@ public class VigenereGUI extends javax.swing.JPanel {
             }
         });
         jPanel3.add(btnLuuKhoaBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 460, -1, 40));
+
+        btnResetBanRo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-reset-24.png"))); // NOI18N
+        btnResetBanRo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnResetBanRo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetBanRoMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnResetBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
         jLabel1.setText("HỆ MÃ VIGENERE");
@@ -354,7 +374,10 @@ public class VigenereGUI extends javax.swing.JPanel {
         String ciphertext = txtBanMa.getText().toUpperCase();
         String key = txtKhoaKofBanMa.getText().toUpperCase();
         StringBuilder plaintext = new StringBuilder();
-
+        if(ciphertext.trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập thông điệp cần giải mã.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         if (key.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập khóa trước khi giải mã.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
@@ -390,6 +413,10 @@ public class VigenereGUI extends javax.swing.JPanel {
         String plaintext = txtBanRo.getText().toUpperCase();
         String key = txtKhoaKofBanRo.getText().toUpperCase();
         StringBuilder ciphertext = new StringBuilder();
+        if(plaintext.trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập thông điệp cần mã hóa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         if (key.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập khóa trước khi mã hóa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
@@ -570,6 +597,19 @@ public class VigenereGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnLuuKhoaBanMaActionPerformed
 
+    private void btnResetBanRoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanRoMouseClicked
+        txtBanRo.setText("");
+        txtKhoaKofBanRo.setText("");
+        txtToiDaBanRo.setText("");
+    }//GEN-LAST:event_btnResetBanRoMouseClicked
+
+    private void btnResetBanMaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanMaMouseClicked
+        txtBanMa.setText("");
+        txtKhoaKofBanMa.setText("");
+
+        txtToiDaBanMa.setText("");
+    }//GEN-LAST:event_btnResetBanMaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChooseFileBanMa;
@@ -582,6 +622,8 @@ public class VigenereGUI extends javax.swing.JPanel {
     private javax.swing.JButton btnOkBanRo;
     private javax.swing.JLabel btnRandomBanMa;
     private javax.swing.JLabel btnRandomBanRo;
+    private javax.swing.JLabel btnResetBanMa;
+    private javax.swing.JLabel btnResetBanRo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

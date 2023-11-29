@@ -262,6 +262,7 @@ public class HillGUI extends javax.swing.JPanel {
         btnRandomBanMa = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        btnResetBanMa = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtBanRo = new javax.swing.JTextArea();
@@ -271,6 +272,7 @@ public class HillGUI extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnRandomBanRo = new javax.swing.JLabel();
+        btnResetBanRo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         jPanel4.setPreferredSize(new java.awt.Dimension(1153, 689));
@@ -324,6 +326,15 @@ public class HillGUI extends javax.swing.JPanel {
         jLabel8.setText("Ví dụ: {3,2,3,5}");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 496, 45));
 
+        btnResetBanMa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-reset-24.png"))); // NOI18N
+        btnResetBanMa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnResetBanMa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetBanMaMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnResetBanMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
         jPanel3.setBackground(new java.awt.Color(244, 249, 249));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bản rõ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 1, 24))); // NOI18N
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -368,6 +379,15 @@ public class HillGUI extends javax.swing.JPanel {
             }
         });
         jPanel3.add(btnRandomBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 380, 40, 50));
+
+        btnResetBanRo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/img/icons8-reset-24.png"))); // NOI18N
+        btnResetBanRo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnResetBanRo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetBanRoMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnResetBanRo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
         jLabel1.setText("HỆ MÃ HILL");
@@ -501,12 +521,25 @@ public class HillGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnRandomBanMaMouseClicked
 
+    private void btnResetBanRoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanRoMouseClicked
+        txtBanRo.setText("");
+        txtKhoaKofBanRo.setText("");
+    }//GEN-LAST:event_btnResetBanRoMouseClicked
+
+    private void btnResetBanMaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetBanMaMouseClicked
+        txtBanMa.setText("");
+        txtKhoaKofBanMa.setText("");
+
+    }//GEN-LAST:event_btnResetBanMaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGiaiMa;
     private javax.swing.JButton btnMaHoa;
     private javax.swing.JLabel btnRandomBanMa;
     private javax.swing.JLabel btnRandomBanRo;
+    private javax.swing.JLabel btnResetBanMa;
+    private javax.swing.JLabel btnResetBanRo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

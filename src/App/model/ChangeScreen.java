@@ -112,8 +112,8 @@ public class ChangeScreen {
         @Override
         public void mouseExited(MouseEvent e) {
             if (!kindSelected.equalsIgnoreCase(kind)) {
-                pnItem.setBackground(new Color(204,242,244));
-                lblItem.setBackground(new Color(204,242,244));
+                pnItem.setBackground(new Color(213,246,255));
+                lblItem.setBackground(new Color(213,246,255));
             }
         }
 
@@ -125,8 +125,8 @@ public class ChangeScreen {
                 item.getPn().setBackground(new Color(244,249,249));
                 item.getLbl().setBackground(new Color(244,249,249));
             } else {
-                item.getPn().setBackground(new Color(204,242,244));
-                item.getLbl().setBackground(new Color(204,242,244));
+                item.getPn().setBackground(new Color(213,246,255));
+                item.getLbl().setBackground(new Color(213,246,255));
             }
         }
     }
